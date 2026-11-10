@@ -237,6 +237,20 @@ footer a{color:var(--ice)}
   .rec,.scrollcue i{animation:none}
   .cardc{transition:none}
 }
+/* ---------- costos ---------- */
+#costos{background:var(--white)}
+.costgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:16px;margin-bottom:32px}
+.cin{display:flex;flex-direction:column;gap:14px;background:var(--frost);border-color:var(--line)}
+.cin input{min-height:44px;border-radius:12px;border:1px solid var(--mist);padding:0 12px;font:inherit;font-family:var(--f-mono);background:var(--white);color:var(--ink);width:100%}
+.cf{min-width:0}
+#costF{font-family:var(--f-mono);font-size:14.5px;line-height:1.75;overflow-x:auto;margin-top:8px}
+.ch3{font-size:24px;margin:8px 0 14px}
+.ctab th,.ctab td{text-align:left!important;font-family:var(--f-sans);vertical-align:top;font-size:14px}.ctab td:first-child{font-weight:600;min-width:180px}.ctab td.m{font-family:var(--f-mono);white-space:nowrap;font-variant-numeric:tabular-nums}
+.ctab a{color:var(--steel)}
+.qa{display:flex;flex-direction:column;gap:10px}
+.qa details{border:1px solid var(--line);background:var(--paper)}
+.qa-a{font-family:var(--f-sans)!important;font-size:15px!important;line-height:1.6!important;color:var(--ink2)!important}
+@media (max-width:900px){.costgrid{grid-template-columns:1fr}.ctab td.m{white-space:normal}}
 </style>
 </head>
 <body>
@@ -251,6 +265,7 @@ QIBA <span>· Cuarto frío</span></a>
 <a href="#lab" data-nav="lab">Laboratorio</a>
 <a href="#refs" data-nav="refs">Refrigerantes</a>
 <a href="#calc" data-nav="calc">Cálculo</a>
+<a href="#costos" data-nav="costos">Costos</a>
 </nav>
 <div class="cta"><span class="chip-cop" id="navCop">COP 1.66</span><a class="btn btn-heat" href="#lab" style="min-height:42px">Laboratorio</a></div>
 </div>
@@ -454,6 +469,60 @@ QIBA <span>· Cuarto frío</span></a>
 <div class="r" id="steps"></div>
 </div>
 </section>
+<!-- ================= COSTOS ================= -->
+<section class="band" id="costos">
+<div class="wrap">
+<div class="head">
+<div><p class="eyebrow">Análisis de costos · precios consultados en noviembre de 2026</p><h2>¿Cuánto cuesta montarlo y operarlo?</h2></div>
+<p class="side">Precios públicos de referencia en pesos colombianos. La energía sale de la potencia que calcula el laboratorio. Lo que no tiene precio publicado dice “a cotizar”.</p>
+</div>
+
+<div class="kpis">
+<div class="kpi main"><span class="k">Montaje llave en mano</span><span class="v" style="font-size:32px">$37.9–40.9 M</span><span class="s">Cuarto de 7.92 m³ con equipo, IVA incluido</span></div>
+<div class="kpi"><span class="k">Energía al mes</span><span class="v" id="cMes">—</span><span class="s" id="cMesS">—</span></div>
+<div class="kpi"><span class="k">Energía al año</span><span class="v" id="cAno">—</span><span class="s" id="cAnoS">—</span></div>
+<div class="kpi"><span class="k">Pasar a R-449A</span><span class="v" id="cPay">—</span><span class="s" id="cPayS">—</span></div>
+</div>
+
+<div class="costgrid">
+<div class="panel cin">
+<p class="eyebrow">Datos de entrada</p>
+<label class="ctl"><span class="lab"><span>Tarifa de energía</span><output>$/kWh</output></span><input type="number" id="cTar" value="1136.761" step="0.001" min="0"><small>EBSA, julio de 2026, comercial/industrial, nivel de tensión 1.</small></label>
+<label class="ctl"><span class="lab"><span>Horas de compresor al día</span><output>h</output></span><input type="number" id="cHd" value="16" step="0.5" min="0" max="24"><small>Supuesto del equipo, el mismo de la sección ambiental. Cámbialo si se mide.</small></label>
+<label class="ctl"><span class="lab"><span>Días al mes</span><output>d</output></span><input type="number" id="cDm" value="30" step="1" min="1" max="31"></label>
+<label class="ctl"><span class="lab"><span>Carga de refrigerante</span><output>kg</output></span><input type="number" id="cKg" value="3" step="0.1" min="0"><small><b>Valor de ejemplo.</b> La carga real no está en la placa; se pesa al recuperar el R-404A.</small></label>
+<label class="ctl"><span class="lab"><span>Precio del R-449A</span><output>$/kg</output></span><input type="number" id="cPk" value="65731" step="100" min="0"><small>18 €/kg en Europa × 3 651.70 $/€. Sin envío ni impuestos: en Colombia, a cotizar.</small></label>
+<label class="ctl"><span class="lab"><span>Mano de obra del cambio</span><output>$</output></span><input type="number" id="cMo" value="300000" step="10000" min="0"><small>Referencia: un mantenimiento preventivo cuesta $200–300 mil más IVA.</small></label>
+</div>
+<div class="panel cf">
+<p class="eyebrow">Cálculo con los valores de arriba</p>
+<div id="costF"></div>
+<p class="note" id="costN"></p>
+</div>
+</div>
+
+<h3 class="ch3">Precios de referencia</h3>
+<div class="tablebox panel" style="padding:4px 8px"><table class="ctab"><thead><tr><th>Concepto</th><th>Precio</th><th>Qué incluye</th><th>Fuente</th></tr></thead><tbody>
+<tr><td>Cuarto frío completo, 2.00 × 2.00 × 2.50 m (7.92 m³)</td><td class="m">$37 900 000 – $40 900 000</td><td>Paneles de PU de 80–100 mm, puerta en acero inoxidable, unidad de 2–3 HP con R-404A o R-507, evaporador, control digital, montaje y puesta en marcha. IVA incluido. El de QIBA tiene 8.48 m³.</td><td><a href="https://frigomaster.co/cuarto-frio-2-00-x-2-00-mts/" target="_blank" rel="noopener">FrigoMaster</a>, oct. 2026</td></tr>
+<tr><td>Unidad condensadora Tecumseh TFHT2480ZBR (R-404A)</td><td class="m">€1 524.77 ≈ $5 568 000</td><td>1 290 W a −35/+32 °C. Versión europea de 400 V y 50 Hz; la de 60 Hz para Colombia se cotiza aparte. Sin envío ni aranceles.</td><td><a href="https://frigopartners.com/condensing-unit-tecumseh-tfht2480zbr-lbp-r404a-380-400v" target="_blank" rel="noopener">Frigopartners</a> · euro de <a href="https://www.portafolio.co/economia/finanzas/precio-del-euro-hoy-4-de-noviembre-en-colombia-asi-cotiza-la-divisa-europea-505684" target="_blank" rel="noopener">Portafolio</a></td></tr>
+<tr><td>R-404A, cilindro de 10.9 kg</td><td class="m">$933 908</td><td>Unos $85 680 por kg. La página no dice si incluye IVA.</td><td><a href="https://www.7tech.com.co/tienda-online/gas-refrigerante-404a-x-24lb-10-9kg/" target="_blank" rel="noopener">7Tech Colombia</a></td></tr>
+<tr><td>R-449A, botella de 10 kg</td><td class="m">desde 18 €/kg</td><td>Precio europeo. En Colombia hay oferta (Opteon XP40) pero el precio no fue legible: a cotizar.</td><td><a href="https://gasesrefrigeranteseuropa.com/categoria/r449a/" target="_blank" rel="noopener">Gases Refrigerantes Europa</a></td></tr>
+<tr><td>Visita técnica · mantenimiento preventivo</td><td class="m">desde $50 000 · $200–300 mil + IVA</td><td>Mantenimiento de un cuarto de 2 × 2 × 2 m en ciudad principal. Fuera de ellas se suman viáticos.</td><td><a href="https://cuartofrioprecio.com/" target="_blank" rel="noopener">cuartofrioprecio.com</a></td></tr>
+<tr><td>Cuarto frío de 25 m³ (licitación pública, 2019)</td><td class="m">$38.6 M · $44.9 M · $59.5 M</td><td>Tres ofertas para un cuarto de 2.5 × 4 × 2.5 m, de −20 a −2 °C. Se adjudicó la de $44.9 M.</td><td><a href="https://sinchi.org.co/files/Evaluación%20Convocatoria%20No.%2054%20de%202019%20-%20Cuarto%20Frío.pdf" target="_blank" rel="noopener">Instituto SINCHI</a></td></tr>
+</tbody></table></div>
+
+<h3 class="ch3">Si nos preguntan por plata</h3>
+<div class="qa">
+<details open><summary><span>¿Cuánto costaría implementar este cuarto frío?</span></summary><div class="f qa-a">Un cuarto llave en mano de tamaño muy parecido (7.92 m³ contra 8.48 m³ de QIBA) se ofrece en Colombia entre $37.9 y $40.9 millones con IVA, montado y funcionando. Una licitación pública de 2019 para un cuarto tres veces más grande recibió ofertas de $38.6 a $59.5 millones. Es una referencia de mercado, no una cotización para QIBA.</div></details>
+<details><summary><span>¿Cuánto paga QIBA de luz por el cuarto?</span><span class="v" id="qaMes">—</span></summary><div class="f qa-a" id="qaMesA">—</div></details>
+<details><summary><span>¿Vale la pena cambiar a R-449A?</span><span class="v" id="qaPay">—</span></summary><div class="f qa-a" id="qaPayA">—</div></details>
+<details><summary><span>¿Por qué no pasar a R-290, si es el más ecológico?</span></summary><div class="f qa-a">Porque no sirve con el compresor actual: el TFH2480Z solo está aprobado para R-404A y R-449A. Pasar a R-290 obliga a cambiar el compresor (unos $5.6 millones solo la unidad, en Europa) y a cumplir normas para gas inflamable. El R-449A no cambia el compresor ni el aceite.</div></details>
+<details><summary><span>¿Qué no incluye este análisis?</span></summary><div class="f qa-a">El consumo del ventilador del condensador y de la luz (no hay datos de horas de uso), el transporte y la instalación eléctrica, ni el precio del R-449A en Colombia. La carga de refrigerante es un valor de ejemplo hasta que se pese.</div></details>
+</div>
+<p class="note">Los precios son de páginas públicas y pueden cambiar. Para una propuesta real hay que pedir cotización formal a por lo menos tres proveedores.</p>
+</div>
+</section>
+
 </main>
 
 <footer>
@@ -512,7 +581,7 @@ function onScroll(){
   const hrs=12*p,T=16-14*p;
   $('hHora').textContent=String(Math.floor(hrs)).padStart(2,'0')+':'+String(Math.floor((hrs%1)*60)).padStart(2,'0');
   $('hT').textContent=f(T,1)+' °C';$('hDial').style.left=(p*100)+'%';
-  const secs=['aire','caso','lab','refs','calc'];let act='aire';
+  const secs=['aire','caso','lab','refs','calc','costos'];let act='aire';
   secs.forEach(id=>{const e=$(id);if(e&&e.getBoundingClientRect().top<window.innerHeight*.4)act=id;});
   document.querySelectorAll('[data-nav]').forEach(x=>x.classList.toggle('on',x.dataset.nav===act));
 }
@@ -689,15 +758,49 @@ function render(){
   ];
   const open=[...document.querySelectorAll('#steps details')].map(d=>d.open);
   $('steps').innerHTML=st.map((s,i)=>`<details${(open.length?open[i]:i===0)?' open':''}><summary><span>${s[0]}</span><span class="v">${s[1]}</span></summary><div class="f">${s[2]}</div></details>`).join('');
-  typeset();
+  LAST={R,all};costos();
   $('hCop').textContent=f(cy.cop,2);$('hQl').textContent=f(L.QL,3)+' kW';
 }
 let tmT=null;
-function typeset(){clearTimeout(tmT);tmT=setTimeout(()=>{const M=window.MathJax;if(M&&M.typesetPromise){try{M.typesetClear([$('steps')]);}catch(e){}M.typesetPromise([$('steps')]).catch(()=>{});}},180);}
+function typeset(){clearTimeout(tmT);tmT=setTimeout(()=>{const M=window.MathJax;if(M&&M.typesetPromise){try{M.typesetClear([$('steps'),$('costF')]);}catch(e){}M.typesetPromise([$('steps'),$('costF')]).catch(()=>{});}},180);}
 function interpLiq(cy){ // h de líquido saturado a Pe, desde el domo P-h
   const D=G.R[cy.ref].domePh;const n=D.length/2|0;const Lq=D.slice(0,n);
   for(let i=0;i<Lq.length-1;i++){if((Lq[i][1]-cy.Pe)*(Lq[i+1][1]-cy.Pe)<=0){const t=(Math.log(cy.Pe)-Math.log(Lq[i][1]))/((Math.log(Lq[i+1][1])-Math.log(Lq[i][1]))||1);return Lq[i][0]+(Lq[i+1][0]-Lq[i][0])*t;}}return NaN;
 }
+
+/* ---------------- costos ---------------- */
+let LAST=null;
+const sp=(x,d)=>{if(!Number.isFinite(x))return '—';const s=x.toFixed(d).split('.');s[0]=s[0].replace(/\B(?=(\d{3})+(?!\d))/g,'\u2009');return s.join('.');};
+const money=x=>'$'+sp(Math.round(x),0);
+const texN=(x,d)=>sp(x,d).replace(/\u2009/g,'\\,');
+const texM=x=>'\\$\\,'+texN(Math.round(x),0);
+function costos(){
+  if(!LAST)return;const R=LAST.R,all=LAST.all,R_=String.raw;
+  const g=id=>{const v=parseFloat($(id).value);return Number.isFinite(v)&&v>=0?v:0;};
+  const tar=g('cTar'),hd=Math.min(24,g('cHd')),dm=g('cDm'),kg=g('cKg'),pk=g('cPk'),mo=g('cMo');
+  const P=R.P,fan=S.qv/1000;
+  const Ed=P*hd+fan*24,Em=Ed*dm,cm=Em*tar,Ea=Ed*365,ca=Ea*tar;
+  const o4=all.find(o=>o.k==='R404A'),o9=all.find(o=>o.k==='R449A');
+  $('cMes').textContent=money(cm);$('cMesS').textContent=`${sp(Em,0)} kWh con ${NAMES[S.ref]}`;
+  $('cAno').textContent=money(ca);$('cAnoS').textContent=`${sp(Ea,0)} kWh en 365 días`;
+  let F=R_`\[E_{\text{día}} = P\,t_{\text{comp}} + \dot W_{\text{vent}}\,(24\ \mathrm{h}) = (${texN(P,3)})(${texN(hd,1)}) + (${texN(fan,3)})(24) = ${texN(Ed,2)}\ \mathrm{kWh}\]\[C_{\text{mes}} = E_{\text{día}}\,(${texN(dm,0)})\,(${texN(tar,2)}) = ${texM(cm)} \qquad C_{\text{año}} = E_{\text{día}}\,(365)\,(${texN(tar,2)}) = ${texM(ca)}\]`;
+  let note=`P = ${sp(P,3)} kW es la potencia del compresor que da el laboratorio con ${NAMES[S.ref]}. No incluye el ventilador del condensador ni la luz.`;
+  if(o4&&o9){
+    const dP=o4.P-o9.P,ah=dP*hd*365*tar,inv=kg*pk+mo,pay=ah>0?inv/ah:Infinity;
+    const co4=kg*INFO.R404A.gwp/1000,co9=kg*INFO.R449A.gwp/1000;
+    F+=R_`\[\Delta P = P_{\text{R-404A}} - P_{\text{R-449A}} = ${texN(o4.P,3)} - ${texN(o9.P,3)} = ${texN(dP,3)}\ \mathrm{kW}\]\[\text{Ahorro}_{\text{año}} = \Delta P\,t_{\text{comp}}\,(365)\,(\text{tarifa}) = (${texN(dP,3)})(${texN(hd,1)})(365)(${texN(tar,2)}) = ${texM(ah)}\]\[\text{Inversión} = m\,p_{\text{kg}} + \text{mano de obra} = (${texN(kg,1)})(${texN(pk,0)}) + ${texN(mo,0)} = ${texM(inv)}\]\[\text{Retorno} = \frac{\text{Inversión}}{\text{Ahorro}_{\text{año}}} = \frac{${texN(inv,0)}}{${texN(ah,0)}} = ${Number.isFinite(pay)?texN(pay,2)+'\\ \\text{años}':'\\infty'}\]\[\mathrm{CO_2e} = m\cdot\mathrm{GWP}:\quad ${texN(co4,1)}\ \mathrm{t}\ (\text{R-404A}) \;\rightarrow\; ${texN(co9,1)}\ \mathrm{t}\ (\text{R-449A})\]`;
+    const meses=pay*12;
+    $('cPay').textContent=Number.isFinite(pay)?(meses<24?`${sp(meses,0)} meses`:`${sp(pay,1)} años`):'no se paga';
+    $('cPayS').textContent=`${money(inv)} de inversión · ahorra ${money(ah)} al año`;
+    $('qaPay').textContent=$('cPay').textContent;
+    $('qaPayA').textContent=`Con las mismas temperaturas, el R-449A baja la potencia de ${sp(o4.P,3)} a ${sp(o9.P,3)} kW. Con ${sp(hd,1)} h al día y la tarifa de EBSA eso ahorra unos ${money(ah)} al año. El cambio cuesta unos ${money(inv)} (gas más mano de obra, con una carga de ejemplo de ${sp(kg,1)} kg), así que se paga en ${$('cPay').textContent}. Además, la misma carga pasa de ${sp(co4,1)} a ${sp(co9,1)} toneladas de CO₂ equivalente si se fuga. No hay que cambiar compresor ni aceite; se ajusta la válvula de expansión.`;
+  }
+  $('qaMes').textContent=money(cm)+'/mes';
+  $('qaMesA').textContent=`Con ${sp(P,3)} kW de compresor durante ${sp(hd,1)} h al día y los ventiladores del evaporador (${S.qv} W) las 24 h, el cuarto consume unos ${sp(Em,0)} kWh al mes. A ${sp(tar,2)} $/kWh (EBSA, julio de 2026) son ${money(cm)} al mes, unos ${money(ca)} al año. Es una estimación: depende de cuántas horas trabaje de verdad el compresor, que lo manda la carga de queso que entra cada día.`;
+  $('costF').innerHTML=F;$('costN').textContent=note;
+  typeset();
+}
+['cTar','cHd','cDm','cKg','cPk','cMo'].forEach(id=>$(id).addEventListener('input',costos));
 
 /* ---------------- controles ---------------- */
 const map={iTr:'tr',iTa:'ta',iFr:'fr',iHr:'hr',iDe:'de',iDc:'dc',aTr:'tr',aTa:'ta',aFr:'fr',aQv:'qv'};
