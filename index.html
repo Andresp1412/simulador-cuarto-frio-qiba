@@ -251,6 +251,64 @@ footer a{color:var(--ice)}
 .qa details{border:1px solid var(--line);background:var(--paper)}
 .qa-a{font-family:var(--f-sans)!important;font-size:15px!important;line-height:1.6!important;color:var(--ink2)!important}
 @media (max-width:900px){.costgrid{grid-template-columns:1fr}.ctab td.m{white-space:normal}}
+/* ---------- CFD: marco de la vista 3D ---------- */
+.air3d::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;border-radius:inherit;
+  background:linear-gradient(180deg,rgba(4,14,26,.62) 0,rgba(4,14,26,0) 22%,rgba(4,14,26,0) 76%,rgba(4,14,26,.7) 100%);
+  box-shadow:inset 0 0 0 1px rgba(207,239,255,.06)}
+.air3d>*:not(canvas){z-index:2}
+.air-head{position:absolute;left:16px;top:16px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;max-width:calc(100% - 96px);pointer-events:none}
+.air-head .air-badge{position:static}
+.air-solver{display:flex;flex-wrap:wrap;gap:2px 10px;padding:5px 12px;border-radius:999px;background:rgba(7,26,48,.6);border:1px solid rgba(207,239,255,.14);font-family:var(--f-mono);font-size:11px;letter-spacing:.05em;color:var(--mist);font-variant-numeric:tabular-nums;backdrop-filter:blur(6px)}
+.air-solver b{color:var(--white);font-weight:500}
+.air-solver b.on{color:#40e0ff}
+.air-scale{right:16px;top:16px;bottom:74px;width:auto;gap:5px}
+.air-scale b{font-weight:500;font-size:10.5px;letter-spacing:.06em;color:var(--white);background:rgba(7,26,48,.6);padding:3px 7px;border-radius:999px;border:1px solid rgba(207,239,255,.14);white-space:nowrap}
+.air-scale i{width:7px;box-shadow:0 0 0 1px rgba(7,26,48,.5)}
+/* ---------- CFD: tarjeta de controles ---------- */
+.cfdchip{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-family:var(--f-mono);font-size:12px;color:var(--mist)}
+.comp{padding:5px 10px;border-radius:999px;border:1px solid rgba(207,239,255,.3);color:var(--ice)}
+.comp.on{background:rgba(45,140,255,.25);border-color:#2D8CFF;color:var(--white)}
+.air-group{display:flex;flex-direction:column;gap:8px}
+.cardc .gl,.gl{font-family:var(--f-mono);font-size:12px;line-height:1.4;letter-spacing:.1em;text-transform:uppercase;color:var(--mist)}
+.aseg{display:flex;flex-wrap:wrap;gap:6px}
+.aseg .abtn{min-height:42px;padding:0 14px}
+.adv{border-radius:16px;background:rgba(7,26,48,.5);border:1px solid rgba(207,239,255,.16)}
+.adv[open]{border-color:rgba(207,239,255,.32)}
+.adv>summary{list-style:none;cursor:pointer;min-height:56px;padding:12px 48px 12px 16px;position:relative;display:flex;flex-direction:column;justify-content:center;gap:2px;border-radius:16px}
+.adv>summary::-webkit-details-marker{display:none}
+.adv>summary span{font-weight:600;color:var(--white);font-size:15.5px}
+.adv>summary small{font-size:12.5px;color:var(--mist)}
+.adv>summary::after{content:"";position:absolute;right:18px;top:50%;width:10px;height:10px;margin-top:-7px;border-right:2px solid var(--ice);border-bottom:2px solid var(--ice);transform:rotate(45deg);transition:transform .2s}
+.adv[open]>summary::after{transform:rotate(-135deg);margin-top:-2px}
+.adv>summary:hover{background:rgba(207,239,255,.05)}
+.advbody{display:flex;flex-direction:column;gap:14px;padding:4px 16px 16px}
+.cfdcharts{display:grid;gap:12px}
+.cfdcharts figure{margin:0;padding:12px;border-radius:12px;background:rgba(7,26,48,.6);border:1px solid rgba(207,239,255,.12)}
+.cfdcharts figcaption{font-size:13px;color:var(--ice);margin-bottom:6px}
+.cfdcharts canvas{display:block;width:100%;height:130px}
+.cardc .cfdcharts .lg,.cfdcharts .lg{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:11.5px;line-height:1.4;color:var(--mist);margin-top:6px}
+.cfdcharts .lg span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.cfdcharts .lg i{display:inline-block;width:14px;height:4px;border-radius:2px}
+.cfdcharts .lg i.band{height:10px;background:rgba(45,140,255,.35)}
+.cfdbal{padding:12px 14px;border-radius:12px;background:rgba(7,26,48,.6);border:1px solid rgba(207,239,255,.12)}
+.cfdbal dl{margin:8px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 16px}
+.cfdbal dt{font-size:12.5px;color:var(--mist)}.cfdbal dd{margin:0;font-family:var(--f-mono);font-size:15px;color:var(--white);font-variant-numeric:tabular-nums}
+.cfdbal .out dd{color:#40e0ff}
+.cardc .cfdeq p,.cfdeq p{font-size:13.5px;color:var(--mist);line-height:1.55}
+.cfdeq mjx-container{color:var(--white)}
+@media (max-width:900px){
+  .air-head{left:10px;top:10px;gap:4px;max-width:calc(100% - 70px)}
+  .air-solver{font-size:9.5px;padding:4px 9px;gap:1px 8px}
+  .air-solver .s-hide{display:none}
+  .air-scale{right:10px;top:10px;bottom:52px;font-size:9.5px}
+  .air-scale b{font-size:9px;padding:2px 6px}
+  .air-scale i{width:5px}
+  .hud{left:8px;right:8px;bottom:8px}
+  .hud .pill{border-radius:14px}
+  .hud .h-hide{display:none}
+  .stage{height:48vh;min-height:290px}
+}
+.adv{padding:0}.adv>summary{align-items:flex-start;justify-content:center;text-align:left;font-weight:400}
 </style>
 </head>
 <body>
@@ -288,16 +346,16 @@ QIBA <span>· Cuarto frío</span></a>
 </div>
 
 <div class="chap" data-k="1" id="c1">
-<article class="cardc"><div class="t"><span>1 de 6 · El cuarto</span><span>00:00 → 02:00</span></div>
+<article class="cardc"><div class="t"><span>1 de 6 · La malla</span><span>00:00 → 02:00</span></div>
 <h3>Un cuarto modular de 8.48 m³</h3>
-<p>La cámara gira por fuera. Las aristas son los paneles; el piso tiene la cuadrícula del cuarto real.</p>
-<ul><li>1.28 × 2.82 × 2.35 m</li><li>Panel de poliuretano de 80 mm</li><li>U = 0.3014 W/m²·K · A = 26.49 m²</li></ul></article>
+<p>Las líneas son la malla del cálculo: el aire del cuarto se divide en 9 048 celdas de unos 10 cm, y en cada una se resuelven las ecuaciones del flujo.</p>
+<ul><li>1.28 × 2.82 × 2.35 m · malla 13 × 24 × 29</li><li>Panel de poliuretano de 80 mm</li><li>U = 0.3014 W/m²·K · A = 26.49 m²</li></ul></article>
 </div>
 
 <div class="chap" data-k="2">
 <article class="cardc"><div class="t"><span>2 de 6 · La carga</span><span>02:00 → 04:00</span></div>
 <h3>El queso pone casi todo el calor</h3>
-<p>Las canastillas se apilan hasta el 40 % del volumen: 3 427 kg de queso que entran a 16 °C.</p>
+<p>Las canastillas se apilan hasta el 40 % del volumen: 3 427 kg de queso que entran a 16 °C. El corte pasa por una columna de canastillas: se ve el aire tibio que sale del queso.</p>
 <div class="bar" aria-hidden="true"><i style="width:85.7%"></i></div>
 <ul><li>Queso 2.388 kW · cuarto 0.397 kW</li><li>85.7 % de la carga total de 2.785 kW</li></ul></article>
 </div>
@@ -305,45 +363,93 @@ QIBA <span>· Cuarto frío</span></a>
 <div class="chap" data-k="3">
 <article class="cardc"><div class="t"><span>3 de 6 · El evaporador</span><span>04:00 → 06:00</span></div>
 <h3>Dos ventiladores lanzan el aire frío</h3>
-<p>La cámara entra junto al evaporador Hispania. El aire sale por el techo a <b id="cTout">−2.0 °C</b>.</p>
+<p>La cámara entra junto al evaporador Hispania. El corte muestra la velocidad: el chorro sale pegado al techo.</p>
 <ul><li>Capacidad 2.85 kW con DT1 = 8 K</li><li>2 ventiladores · 116 W · 2 596 m³/h</li></ul></article>
 </div>
 
 <div class="chap" data-k="4">
-<article class="cardc"><div class="t"><span>4 de 6 · La circulación</span><span>06:00 → 08:00</span></div>
-<h3>Una celda que gira 306 veces por hora</h3>
-<p>Vista de lado: el aire corre por el techo, baja junto a la puerta y regresa por el piso, pasando por encima del queso.</p>
-<ul><li>Velocidad en el techo: 2.6 m/s</li><li>Azul: aire frío · rojo: aire tibio</li></ul></article>
+<article class="cardc"><div class="t"><span>4 de 6 · Los remolinos</span><span>06:00 → 08:00</span></div>
+<h3>Remolinos en las esquinas</h3>
+<p>Vista de lado con la vorticidad, que mide cuánto gira el aire. El chorro choca con la pared de la puerta, baja y regresa por el piso; en las esquinas y detrás del queso quedan remolinos que giran al revés.</p>
+<ul><li>Rojo: gira en un sentido · azul: en el otro</li><li>Las flechas son la velocidad en cada celda</li></ul></article>
 </div>
 
 <div class="chap" data-k="5">
 <article class="cardc"><div class="t"><span>5 de 6 · La puerta</span><span>08:00 → 12:00</span></div>
 <h3>Abrir la puerta rompe la celda</h3>
-<p>Entra aire de 16 °C por arriba y el aire frío se escapa por abajo. Por eso la carga de diseño lleva un 25 % de seguridad.</p>
+<p>Entra aire de 16 °C por el hueco de la puerta. El chorro del evaporador, que baja por esa pared, lo arrastra hacia el piso y lo mezcla con el cuarto. El termostato prende el compresor; por esto la carga de diseño lleva un 25 % de seguridad.</p>
 <ul><li>Partículas rojas: aire del ambiente</li><li>Al cerrar, el evaporador recupera la temperatura</li></ul></article>
 </div>
 
 <div class="chap" data-k="6" id="c6">
 <article class="cardc play"><div class="t"><span>6 de 6 · Ahora tú</span><span>12:00 · 2.0 °C</span></div>
 <h3>Juega con la simulación</h3>
-<p>Arrastra para girar y usa la rueda o dos dedos para acercar. Los controles cambian el aire y el laboratorio al mismo tiempo.</p>
+<p>Arrastra para girar y usa la rueda o dos dedos para acercar. El aire se calcula en vivo: cambia un control y el flujo, las temperaturas y las gráficas responden. Los controles también mueven el laboratorio.</p>
 <div class="air-stats">
 <div><b id="aQ">—</b><span>Caudal de aire</span></div>
 <div><b id="aACH">—</b><span>Recambios del aire</span></div>
 <div><b id="aTout">—</b><span>Aire que sale del evaporador</span></div>
 <div><b id="aV">—</b><span>Velocidad en el techo</span></div>
 </div>
+<p class="cfdchip"><span id="cfdComp" class="comp on">Compresor encendido</span><span>Cálculo en vivo · 9 048 celdas</span></p>
+<div class="air-group"><span class="gl">Qué mostrar en el corte</span>
+<div class="aseg" role="group" aria-label="Campo del corte"><button type="button" class="abtn on" data-vf="T" aria-pressed="true">Temperatura</button><button type="button" class="abtn" data-vf="U" aria-pressed="false">Velocidad</button><button type="button" class="abtn" data-vf="O" aria-pressed="false">Remolinos</button><button type="button" class="abtn" data-vf="none" aria-pressed="false">Sin corte</button></div>
+</div>
 <div class="air-ctrl">
 <button type="button" class="abtn" id="aDoor" aria-pressed="false">Abrir la puerta</button>
-<button type="button" class="abtn on" id="aTrail" aria-pressed="true">Estelas</button>
-<button type="button" class="abtn" id="aSpin" aria-pressed="false">Girar la cámara</button>
 <button type="button" class="abtn" id="aPause" aria-pressed="false">Pausar</button>
+<button type="button" class="abtn" id="aReset">Reiniciar</button>
 </div>
-<label class="ctl" for="aTr"><span class="lab"><span>Temperatura del cuarto</span><output id="oaTr" for="aTr">2.0 °C</output></span><input type="range" id="aTr" min="0" max="8" step="0.5" value="2"></label>
+<label class="ctl" for="aTq"><span class="lab"><span>Temperatura del queso</span><output id="oaTq" for="aTq">16.0 °C</output></span><input type="range" id="aTq" min="2" max="16" step="0.5" value="16"><small>16 °C cuando entra, 2 °C cuando ya está frío.</small></label>
+<label class="ctl" for="aTr"><span class="lab"><span>Temperatura del cuarto (termostato)</span><output id="oaTr" for="aTr">2.0 °C</output></span><input type="range" id="aTr" min="0" max="8" step="0.5" value="2"></label>
 <label class="ctl" for="aTa"><span class="lab"><span>Temperatura ambiente</span><output id="oaTa" for="aTa">16 °C</output></span><input type="range" id="aTa" min="10" max="28" step="1" value="16"></label>
+
+<details class="adv" id="advMenu">
+<summary><span>Funciones avanzadas</span><small>Corte, malla, vectores, carga y ventiladores</small></summary>
+<div class="advbody">
+<div class="air-group"><span class="gl">Orientación del corte</span>
+<div class="aseg" role="group" aria-label="Orientación del corte"><button type="button" class="abtn on" data-va="x" aria-pressed="true">Lateral</button><button type="button" class="abtn" data-va="y" aria-pressed="false">Planta</button><button type="button" class="abtn" data-va="z" aria-pressed="false">Frontal</button></div>
+<label class="ctl" for="aPos"><span class="lab"><span>Posición del corte</span><output id="oaPos" for="aPos">Corte lateral</output></span><input type="range" id="aPos" min="0" max="100" step="1" value="50"></label>
+</div>
+<div class="air-group"><span class="gl">Capas de la vista</span>
+<div class="air-ctrl">
+<button type="button" class="abtn on" id="aMesh" aria-pressed="true">Malla</button>
+<button type="button" class="abtn on" id="aVec" aria-pressed="true">Vectores</button>
+<button type="button" class="abtn on" id="aTrail" aria-pressed="true">Partículas</button>
+<button type="button" class="abtn" id="aSpin" aria-pressed="false">Girar la cámara</button>
+</div></div>
 <label class="ctl" for="aFr"><span class="lab"><span>Volumen ocupado por el queso</span><output id="oaFr" for="aFr">40 %</output></span><input type="range" id="aFr" min="10" max="70" step="5" value="40"></label>
 <label class="ctl" for="aQv"><span class="lab"><span>Ventiladores del evaporador</span><output id="oaQv" for="aQv">116 W</output></span><input type="range" id="aQv" min="40" max="160" step="2" value="116"><small>Catálogo Hispania a 60 Hz: 116 W y 2 596 m³/h.</small></label>
-<p class="airnote">Modelo visual simplificado: una celda de recirculación con remolinos secundarios, no una solución numérica del flujo. El caudal sigue la ley de afinidad, \(\dot V \propto \dot W^{1/3}\), y el aire se enfría según \(\dot Q = \dot m\,c_p\,\Delta T\) con la carga del cuarto, limitada a la capacidad del evaporador.</p>
+<label class="ctl" for="aSp"><span class="lab"><span>Velocidad de la simulación</span><output id="oaSp" for="aSp">×1</output></span><input type="range" id="aSp" min="1" max="4" step="1" value="1"><small>×1 es tiempo real. En un equipo lento avanza más despacio.</small></label>
+</div>
+</details>
+
+<details class="adv" id="advCharts">
+<summary><span>Gráficas en vivo</span><small>Temperaturas, convergencia, velocidad y balance de energía</small></summary>
+<div class="advbody">
+<div class="cfdcharts">
+<figure><figcaption>Temperaturas en sondas, °C</figcaption><canvas id="cfdT" aria-label="Temperaturas del aire en el tiempo"></canvas>
+<p class="lg"><span><i style="background:#40e0ff"></i>Salida del evaporador</span><span><i style="background:#CFEFFF"></i>Retorno</span><span><i style="background:#F59E0B"></i>Media del aire</span><span><i style="background:#FF5A5F"></i>Junto al queso</span><span><i class="band"></i>Compresor encendido</span></p></figure>
+<figure><figcaption>Residuo de continuidad \(\lVert \nabla\cdot\vec u \rVert_{\mathrm{rms}}\), en 1/s</figcaption><canvas id="cfdR" aria-label="Residuo de continuidad en el tiempo"></canvas></figure>
+<figure><figcaption>Velocidad a lo largo del cuarto, \(w\) en m/s, de piso a techo</figcaption><canvas id="cfdP" aria-label="Perfil vertical de la velocidad"></canvas>
+<p class="lg"><span><i style="background:#40e0ff"></i>Centro del cuarto</span><span><i style="background:#F59E0B"></i>Cerca de la puerta</span></p></figure>
+</div>
+<div class="cfdbal"><p class="gl">Balance de energía del aire, ahora</p>
+<dl><div><dt>Entra por paredes</dt><dd id="bWall">—</dd></div><div><dt>Entra del queso</dt><dd id="bQ">—</dd></div><div><dt>Entra por la puerta</dt><dd id="bDoor">—</dd></div><div><dt>Ventiladores</dt><dd id="bFan">—</dd></div><div class="out"><dt>Evaporador retira</dt><dd id="bEv">—</dd></div><div><dt>Aire, promedio</dt><dd id="bTm">—</dd></div></dl></div>
+</div>
+</details>
+
+<details class="adv cfdeq"><summary><span>Las ecuaciones que se resuelven</span><small>Navier–Stokes, energía y turbulencia</small></summary>
+<div class="advbody">
+<p>Aire incompresible con flotación de Boussinesq, en volúmenes finitos sobre una malla escalonada:</p>
+\[\nabla\cdot\vec u = 0\]
+\[\frac{\partial \vec u}{\partial t} + (\vec u\cdot\nabla)\vec u = -\frac{1}{\rho}\nabla p + \nabla\cdot\big[(\nu+\nu_t)\nabla \vec u\big] + g\,\beta\,(T-T_\infty)\,\hat{\jmath} + \vec f_{\text{vent}}\]
+\[\frac{\partial T}{\partial t} + \vec u\cdot\nabla T = \nabla\cdot\Big[\Big(\alpha+\frac{\nu_t}{Pr_t}\Big)\nabla T\Big] + \frac{\dot{q}_v}{\rho\,c_p}\]
+\[\nu_t = (C_s\,\Delta)^2\,\sqrt{2\,S_{ij}S_{ij}},\qquad C_s = 0.17\]
+<p>Cada paso de \(\Delta t = 0.04\) s: fuerzas, advección MacCormack, difusión y proyección de la presión \(\nabla^2 p = \rho\,\nabla\cdot\vec u^{*}/\Delta t\), resuelta con SOR. Paredes: \(U = 0.3014\) W/m²·K. Queso: \(h = 5.7 + 3.8\,V\) W/m²·K. Evaporador: termostato de ±0.5 K, hasta 2.85 kW, y el aire no baja de \(T_e + 1\) K.</p>
+<p>Es una simulación numérica de verdad, pero gruesa: 9 048 celdas de unos 10 cm. Muestra bien el chorro, la recirculación, los remolinos de las esquinas y la estratificación; no reemplaza un estudio CFD con millones de celdas. Fluent y OpenFOAM usan este mismo método de volúmenes finitos.</p>
+</div>
+</details>
 <a class="btn btn-heat" href="#lab" style="align-self:flex-start">Ir al laboratorio</a>
 </article>
 </div>
@@ -353,11 +459,12 @@ QIBA <span>· Cuarto frío</span></a>
 <div class="stage">
 <div class="air3d">
 <canvas id="air3d" aria-label="Simulación 3D del flujo de aire en el cuarto frío de QIBA"></canvas>
-<div class="air-badge" aria-hidden="true"><span class="rec"></span><span id="hEtapa">Carga inicial</span></div>
-<div class="air-scale" aria-hidden="true"><span id="airTmax"></span><i></i><span id="airTmin"></span></div>
+<div class="air-head" aria-hidden="true"><div class="air-badge"><span class="rec"></span><span id="hEtapa">Carga inicial</span></div>
+<div class="air-solver"><span class="s-hide">CFD · 9 048 celdas</span><span id="hSolve">—</span><span>Compresor <b id="hComp" class="on">ON</b></span></div></div>
+<div class="air-scale" aria-hidden="true"><b id="airField">Temperatura</b><span id="airTmax"></span><i></i><span id="airTmin"></span></div>
 <div class="air-loading" id="airLoading">Cargando la vista 3D…</div>
 <div class="hud" aria-hidden="true">
-<div class="pill"><span>Hora <b id="hHora">00:00</b> / 12:00</span><span>Queso <b id="hT">16.0 °C</b></span><span>Carga <b id="hQl">2.785 kW</b></span><span>COP <b id="hCop">1.66</b></span></div>
+<div class="pill"><span>Hora <b id="hHora">00:00</b> / 12:00</span><span>Queso <b id="hT">16.0 °C</b></span><span class="h-hide">Carga <b id="hQl">2.785 kW</b></span><span>COP <b id="hCop">1.66</b></span></div>
 <div class="pill dialpill"><span style="display:flex;align-items:center;gap:6px">16°<span class="dial"><i id="hDial"></i></span>2°</span></div>
 </div>
 </div>
@@ -549,13 +656,13 @@ const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------------- recorrido con la simulación 3D ---------------- */
 const TOUR=[
- {pos:[3.5,2.2,3.9],look:[0,-0.1,0],drift:.45,etapa:'Carga inicial'},
- {pos:[2.7,1.7,-3.5],look:[0,0,0],drift:.22,etapa:'El cuarto'},
- {pos:[2.3,0.45,2.9],look:[0,-0.7,0],drift:.14,etapa:'La carga',occ:true},
- {pos:[0.8,0.65,0.45],look:[0,0.85,-1.3],drift:.1,etapa:'El evaporador'},
- {pos:[4.4,0.15,0.02],look:[0,0,0],drift:.07,etapa:'La circulación'},
- {pos:[2.1,0.55,3.8],look:[0,-0.1,1.0],drift:.08,etapa:'La puerta',door:true},
- {pos:[3.15,2.05,3.45],look:[0,0,0],drift:0,etapa:'Conservación',free:true}
+ {pos:[3.5,2.2,3.9],look:[0,-0.1,0],drift:.45,etapa:'Carga inicial',view:{f:'T',ax:'x',pos:.5,mesh:false,vec:false,parts:true}},
+ {pos:[2.7,1.7,-3.5],look:[0,0,0],drift:.22,etapa:'La malla',view:{f:'T',ax:'x',pos:.5,mesh:true,vec:false,parts:false}},
+ {pos:[3.1,0.7,2.3],look:[0.15,-0.45,0],drift:.14,etapa:'La carga',occ:true,view:{f:'T',ax:'x',pos:.77,mesh:false,vec:true,parts:false}},
+ {pos:[2.7,1.0,-0.35],look:[0,0.55,-0.7],drift:.1,etapa:'El evaporador',view:{f:'U',ax:'x',pos:.5,mesh:false,vec:true,parts:true}},
+ {pos:[4.4,0.15,0.02],look:[0,0,0],drift:.07,etapa:'Remolinos',view:{f:'O',ax:'x',pos:.5,mesh:false,vec:true,parts:false}},
+ {pos:[2.1,0.55,3.8],look:[0,-0.1,1.0],drift:.08,etapa:'La puerta',door:true,view:{f:'T',ax:'x',pos:.5,mesh:false,vec:true,parts:true}},
+ {pos:[3.15,2.05,3.45],look:[0,0,0],drift:0,etapa:'Simulación libre',free:true,view:{f:'T',ax:'x',pos:.5,mesh:true,vec:true,parts:true}}
 ];
 const chaps=[...document.querySelectorAll('.chap')];
 let cur=-1,occTimer=null;
@@ -565,7 +672,7 @@ function setChap(k){
   $('hEtapa').textContent=TOUR[k].etapa;
   const A=window.__air;if(!A)return;
   const T=TOUR[k];A.free(!!T.free);if(!T.free)A.go(T.pos,T.look,reduce?0:T.drift);
-  A.door(!!T.door);
+  A.door(!!T.door);if(T.view)A.view(T.view);
   clearInterval(occTimer);
   if(T.occ&&!reduce){let n=1;const top=Math.max(1,Math.round(S.fr/10));A.occ(0.1);occTimer=setInterval(()=>{n++;A.occ(Math.min(n,top)/10);if(n>=top)clearInterval(occTimer);},260);}
   else A.occ(null);
@@ -580,7 +687,7 @@ function onScroll(){
   const p=Math.min(1,Math.max(0,(y-a.top)/((b.bottom-a.top)||1)));
   const hrs=12*p,T=16-14*p;
   $('hHora').textContent=String(Math.floor(hrs)).padStart(2,'0')+':'+String(Math.floor((hrs%1)*60)).padStart(2,'0');
-  $('hT').textContent=f(T,1)+' °C';$('hDial').style.left=(p*100)+'%';
+  $('hT').textContent=f(T,1)+' °C';$('hDial').style.left=(p*100)+'%';if(window.__air&&window.__air.cheese)window.__air.cheese(Math.round(T*2)/2);
   const secs=['aire','caso','lab','refs','calc','costos'];let act='aire';
   secs.forEach(id=>{const e=$(id);if(e&&e.getBoundingClientRect().top<window.innerHeight*.4)act=id;});
   document.querySelectorAll('[data-nav]').forEach(x=>x.classList.toggle('on',x.dataset.nav===act));
@@ -824,201 +931,606 @@ render();onScroll();
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script>
+/* ===== Solver CFD del aire del cuarto frío =====
+   Volúmenes finitos en malla estructurada escalonada (MAC).
+   Navier–Stokes incompresible + Boussinesq + energía, LES Smagorinsky.
+   Paso fraccionado: fuerzas → advección (MacCormack) → difusión → proyección (SOR rojo-negro). */
+function makeCFD(o){
+  const W=o.W,H=o.H,D=o.D,NX=o.NX,NY=o.NY,NZ=o.NZ;
+  const dx=W/NX,dy=H/NY,dz=D/NZ,dV=dx*dy*dz;
+  const NC=NX*NY*NZ;
+  const id=(i,j,k)=>i+NX*(j+NY*k);
+  const iu=(i,j,k)=>i+(NX+1)*(j+NY*k), iv=(i,j,k)=>i+NX*(j+(NY+1)*k), iw=(i,j,k)=>i+NX*(j+NY*k);
+  const NU=(NX+1)*NY*NZ, NV=NX*(NY+1)*NZ, NWf=NX*NY*(NZ+1);
+  let u=new Float32Array(NU),v=new Float32Array(NV),w=new Float32Array(NWf),T=new Float32Array(NC),p=new Float32Array(NC);
+  const u0=new Float32Array(NU),v0=new Float32Array(NV),w0=new Float32Array(NWf),T0=new Float32Array(NC);
+  const ua=new Float32Array(NU),va=new Float32Array(NV),wa=new Float32Array(NWf),Ta=new Float32Array(NC);
+  const div=new Float32Array(NC),nut=new Float32Array(NC);
+  const solid=new Uint8Array(NC),fan=new Uint8Array(NWf),coil=new Uint8Array(NC),intake=new Uint8Array(NC),door=new Uint8Array(NX*NY);
+  const crateAdj=new Float32Array(NC); // área de queso expuesta por celda (m²)
+  const wallA=new Float32Array(NC);    // área de pared exterior por celda (m²)
+  // propiedades del aire a 2 522 m (Duitama) y ~2 °C
+  const rho=0.95,cp=1006,g=9.81,nu=1.8e-5,alpha=2.5e-5,Prt=0.85,Cs=0.17,Delta=Math.cbrt(dV);
+  const P={Tset:2,Tex:16,Tq:16,Te:-6,Vdot:0.721,Qcap:2845,Qfan:116,U:0.3014,doorOpen:false};
+  const st={t:0,on:true,Tout:2,Tret:2,Qevap:0,Qwall:0,Qcheese:0,Qdoor:0,res:0,resIn:0,Vjet:0,steps:0};
+  const X0=-W/2,Y0=-H/2,Z0=-D/2;
+  // ---------- geometría ----------
+  const inBox=(x,y,z,b)=>x>b[0]&&x<b[1]&&y>b[2]&&y<b[3]&&z>b[4]&&z<b[5];
+  const EV=[-0.55,0.55,H/2-0.42,H/2+1,-D/2-1,-D/2+0.42];
+  const FAN=[-0.42,0.42,H/2-0.40,H/2-0.06,-D/2+0.42,-D/2+0.62];
+  let crates=[];
+  function setGeometry(boxes){
+    crates=boxes; solid.fill(0);fan.fill(0);coil.fill(0);intake.fill(0);crateAdj.fill(0);wallA.fill(0);
+    for(let k=0;k<NZ;k++)for(let j=0;j<NY;j++)for(let i=0;i<NX;i++){
+      const x=X0+(i+.5)*dx,y=Y0+(j+.5)*dy,z=Z0+(k+.5)*dz,c=id(i,j,k);
+      if(inBox(x,y,z,EV))solid[c]=1;
+      for(const b of crates)if(inBox(x,y,z,[b.x0,b.x1,Y0-1,b.top,b.z0,b.z1]))solid[c]=2;
+    }
+    for(let k=0;k<NZ;k++)for(let j=0;j<NY;j++)for(let i=0;i<NX;i++){
+      const c=id(i,j,k); if(solid[c])continue;
+      const x=X0+(i+.5)*dx,y=Y0+(j+.5)*dy,z=Z0+(k+.5)*dz;
+      if(inBox(x,y,z,FAN)) coil[c]=1;                       // primera capa frente al serpentín
+      if(x>EV[0]&&x<EV[1]&&z<EV[5]&&y<EV[2]&&y>EV[2]-0.25) intake[c]=1;    // aire de retorno bajo el evaporador
+      const nb=[[i-1,j,k,dy*dz],[i+1,j,k,dy*dz],[i,j-1,k,dx*dz],[i,j+1,k,dx*dz],[i,j,k-1,dx*dy],[i,j,k+1,dx*dy]];
+      for(const [a,b,e,A] of nb){
+        if(a<0||a>=NX||b<0||b>=NY||e<0||e>=NZ){wallA[c]+=A;continue}
+        if(solid[id(a,b,e)]===2)crateAdj[c]+=A;
+      }
+    }
+    for(let k=0;k<=NZ;k++)for(let j=0;j<NY;j++)for(let i=0;i<NX;i++){
+      const x=X0+(i+.5)*dx,y=Y0+(j+.5)*dy,z=Z0+k*dz;
+      if(x>FAN[0]&&x<FAN[1]&&y>FAN[2]&&y<FAN[3]&&z>FAN[4]&&z<FAN[5])fan[iw(i,j,k)]=1;
+    }
+    // puerta: hueco de 0.90 × 1.95 m en la pared del frente
+    for(let j=0;j<NY;j++)for(let i=0;i<NX;i++){const x=X0+(i+.5)*dx,y=Y0+(j+.5)*dy;door[i+NX*j]=(Math.abs(x)<0.45&&y<Y0+1.95)?1:0}
+    // área real del chorro, para que el caudal sea el del catálogo
+    let A=0;for(let j=0;j<NY;j++)for(let i=0;i<NX;i++){const x=X0+(i+.5)*dx,y=Y0+(j+.5)*dy;if(x>FAN[0]&&x<FAN[1]&&y>FAN[2]&&y<FAN[3])A+=dx*dy}
+    st.Afan=A; masks(); enforce(u,v,w);
+    let vc=0;for(let c=0;c<NC;c++)if(coil[c])vc++;st.Vcoil=vc*dV;
+  }
+  // ---------- caras abiertas ----------
+  const fl=c=>!solid[c];
+  const uo=new Uint8Array(NU),vo=new Uint8Array(NV),wo=new Uint8Array(NWf);
+  function masks(){
+    for(let k=0;k<NZ;k++)for(let j=0;j<NY;j++)for(let i=0;i<=NX;i++)uo[iu(i,j,k)]=(i>0&&i<NX&&fl(id(i-1,j,k))&&fl(id(i,j,k)))?1:0;
+    for(let k=0;k<NZ;k++)for(let j=0;j<=NY;j++)for(let i=0;i<NX;i++)vo[iv(i,j,k)]=(j>0&&j<NY&&fl(id(i,j-1,k))&&fl(id(i,j,k)))?1:0;
+    for(let k=0;k<=NZ;k++)for(let j=0;j<NY;j++)for(let i=0;i<NX;i++)wo[iw(i,j,k)]=k===NZ?((P.doorOpen&&door[i+NX*j]&&fl(id(i,j,NZ-1)))?1:0):((k>0&&fl(id(i,j,k-1))&&fl(id(i,j,k)))?1:0);
+  }
+  const uOpen=(i,j,k)=>uo[iu(i,j,k)],vOpen=(i,j,k)=>vo[iv(i,j,k)],wOpen=(i,j,k)=>wo[iw(i,j,k)];
+  function enforce(U,V,Wv){for(let q=0;q<NU;q++)if(!uo[q])U[q]=0;for(let q=0;q<NV;q++)if(!vo[q])V[q]=0;for(let q=0;q<NWf;q++)if(!wo[q])Wv[q]=0}
+  function setDoor(o){P.doorOpen=!!o;masks();enforce(u,v,w)}
+  // ---------- interpolación trilineal en mallas escalonadas ----------
+  let smin=0,smax=0;
+  function samp(F,nx,ny,nz,ox,oy,oz,x,y,z){
+    let fx=(x-X0)/dx-ox,fy=(y-Y0)/dy-oy,fz=(z-Z0)/dz-oz;
+    fx=Math.max(0,Math.min(nx-1.0001,fx));fy=Math.max(0,Math.min(ny-1.0001,fy));fz=Math.max(0,Math.min(nz-1.0001,fz));
+    const i=fx|0,j=fy|0,k=fz|0,a=fx-i,b=fy-j,c=fz-k;
+    const s=nx,sl=nx*ny,n=i+s*j+sl*k;
+    const f000=F[n],f100=F[n+1],f010=F[n+s],f110=F[n+s+1],f001=F[n+sl],f101=F[n+sl+1],f011=F[n+sl+s],f111=F[n+sl+s+1];
+    let m1=f000<f100?f000:f100,M1=f000<f100?f100:f000;if(f010<m1)m1=f010;else if(f010>M1)M1=f010;if(f110<m1)m1=f110;else if(f110>M1)M1=f110;if(f001<m1)m1=f001;else if(f001>M1)M1=f001;if(f101<m1)m1=f101;else if(f101>M1)M1=f101;if(f011<m1)m1=f011;else if(f011>M1)M1=f011;if(f111<m1)m1=f111;else if(f111>M1)M1=f111;smin=m1;smax=M1;
+    return ((f000*(1-a)+f100*a)*(1-b)+(f010*(1-a)+f110*a)*b)*(1-c)+((f001*(1-a)+f101*a)*(1-b)+(f011*(1-a)+f111*a)*b)*c;
+  }
+  const uAt=(x,y,z,U)=>samp(U||u,NX+1,NY,NZ,0,.5,.5,x,y,z);
+  const vAt=(x,y,z,V)=>samp(V||v,NX,NY+1,NZ,.5,0,.5,x,y,z);
+  const wAt=(x,y,z,Wv)=>samp(Wv||w,NX,NY,NZ+1,.5,.5,0,x,y,z);
+  const TAt=(x,y,z)=>samp(T,NX,NY,NZ,.5,.5,.5,x,y,z);
+  // ---------- advección MacCormack con limitador ----------
+  const BX=new Float32Array(NWf+NU),BY=new Float32Array(NWf+NU),BZ=new Float32Array(NWf+NU),LO=new Float32Array(NWf+NU),HI=new Float32Array(NWf+NU);
+  const cl=(a,n)=>a<0?0:(a>=n?n-1:a);
+  // velocidad en el punto de cada malla, promediando las caras vecinas (sin interpolar)
+  function velAt(mode,i,j,k,o){
+    if(mode===0){const a=cl(i-1,NX),b=cl(i,NX),jp=j+1,kp=k+1;
+      o[0]=u0[iu(i,j,k)];
+      o[1]=.25*(v0[iv(a,j,k)]+v0[iv(b,j,k)]+v0[iv(a,jp,k)]+v0[iv(b,jp,k)]);
+      o[2]=.25*(w0[iw(a,j,k)]+w0[iw(b,j,k)]+w0[iw(a,j,kp)]+w0[iw(b,j,kp)]);}
+    else if(mode===1){const a=cl(j-1,NY),b=cl(j,NY),ip=i+1,kp=k+1;
+      o[0]=.25*(u0[iu(i,a,k)]+u0[iu(i,b,k)]+u0[iu(ip,a,k)]+u0[iu(ip,b,k)]);
+      o[1]=v0[iv(i,j,k)];
+      o[2]=.25*(w0[iw(i,a,k)]+w0[iw(i,b,k)]+w0[iw(i,a,kp)]+w0[iw(i,b,kp)]);}
+    else if(mode===2){const a=cl(k-1,NZ),b=cl(k,NZ),ip=i+1,jp=j+1;
+      o[0]=.25*(u0[iu(i,j,a)]+u0[iu(i,j,b)]+u0[iu(ip,j,a)]+u0[iu(ip,j,b)]);
+      o[1]=.25*(v0[iv(i,j,a)]+v0[iv(i,j,b)]+v0[iv(i,jp,a)]+v0[iv(i,jp,b)]);
+      o[2]=w0[iw(i,j,k)];}
+    else{o[0]=.5*(u0[iu(i,j,k)]+u0[iu(i+1,j,k)]);o[1]=.5*(v0[iv(i,j,k)]+v0[iv(i,j+1,k)]);o[2]=.5*(w0[iw(i,j,k)]+w0[iw(i,j,k+1)]);}
+  }
+  const vv=[0,0,0];
+  function advect(F,Fo,tmp,nx,ny,nz,ox,oy,oz,dt,mode){
+    let q=0;
+    for(let k=0;k<nz;k++)for(let j=0;j<ny;j++)for(let i=0;i<nx;i++,q++){
+      const x=X0+(i+ox)*dx,y=Y0+(j+oy)*dy,z=Z0+(k+oz)*dz;
+      velAt(mode,i,j,k,vv);
+      BX[q]=vv[0]*dt;BY[q]=vv[1]*dt;BZ[q]=vv[2]*dt;
+      tmp[q]=samp(Fo,nx,ny,nz,ox,oy,oz,x-BX[q],y-BY[q],z-BZ[q]);LO[q]=smin;HI[q]=smax;
+    }
+    q=0;
+    for(let k=0;k<nz;k++)for(let j=0;j<ny;j++)for(let i=0;i<nx;i++,q++){
+      const x=X0+(i+ox)*dx,y=Y0+(j+oy)*dy,z=Z0+(k+oz)*dz;
+      const back=samp(tmp,nx,ny,nz,ox,oy,oz,x+BX[q],y+BY[q],z+BZ[q]);
+      let r=tmp[q]+0.5*(Fo[q]-back);
+      if(r<LO[q])r=LO[q];else if(r>HI[q])r=HI[q];
+      F[q]=r;
+    }
+  }
+  // ---------- viscosidad turbulenta (Smagorinsky) ----------
+  function smag(){
+    const uc=(i,j,k)=>.5*(u[iu(i,j,k)]+u[iu(i+1,j,k)]),vc=(i,j,k)=>.5*(v[iv(i,j,k)]+v[iv(i,j+1,k)]),wc=(i,j,k)=>.5*(w[iw(i,j,k)]+w[iw(i,j,k+1)]);
+    const C=(Cs*Delta)**2;
+    for(let k=0;k<NZ;k++)for(let j=0;j<NY;j++)for(let i=0;i<NX;i++){
+      const c=id(i,j,k);
+      const ux=(u[iu(i+1,j,k)]-u[iu(i,j,k)])/dx,vy=(v[iv(i,j+1,k)]-v[iv(i,j,k)])/dy,wz=(w[iw(i,j,k+1)]-w[iw(i,j,k)])/dz;
+      const ip=Math.min(NX-1,i+1),im=Math.max(0,i-1),jp=Math.min(NY-1,j+1),jm=Math.max(0,j-1),kp=Math.min(NZ-1,k+1),km=Math.max(0,k-1);
+      const uy=(uc(i,jp,k)-uc(i,jm,k))/((jp-jm)*dy||1),uz=(uc(i,j,kp)-uc(i,j,km))/((kp-km)*dz||1);
+      const vx=(vc(ip,j,k)-vc(im,j,k))/((ip-im)*dx||1),vz=(vc(i,j,kp)-vc(i,j,km))/((kp-km)*dz||1);
+      const wx=(wc(ip,j,k)-wc(im,j,k))/((ip-im)*dx||1),wy=(wc(i,jp,k)-wc(i,jm,k))/((jp-jm)*dy||1);
+      const S2=2*(ux*ux+vy*vy+wz*wz)+(uy+vx)**2+(uz+wx)**2+(vz+wy)**2;
+      nut[c]=Math.min(0.02,C*Math.sqrt(S2));
+    }
+  }
+  // ---------- difusión explícita en caras ----------
+  function diffuse(F,Fo,nx,ny,nz,dir,dt){
+    const s=nx,sl=nx*ny,ax=1/(dx*dx),ay=1/(dy*dy),az=1/(dz*dz);
+    for(let k=0;k<nz;k++)for(let j=0;j<ny;j++)for(let i=0;i<nx;i++){
+      const q=i+s*j+sl*k,f=Fo[q];
+      // viscosidad de la celda más cercana
+      const ci=Math.min(NX-1,i),cj=Math.min(NY-1,j),ck=Math.min(NZ-1,k);
+      const ne=nu+nut[id(ci,cj,ck)];
+      const g=(a,b,e,wall)=>{if(a<0||a>=nx||b<0||b>=ny||e<0||e>=nz)return wall?-f:f;return Fo[a+s*b+sl*e]};
+      const L=(g(i-1,j,k,dir!==0)+g(i+1,j,k,dir!==0)-2*f)*ax+(g(i,j-1,k,dir!==1)+g(i,j+1,k,dir!==1)-2*f)*ay+(g(i,j,k-1,dir!==2)+g(i,j,k+1,dir!==2)-2*f)*az;
+      F[q]=f+dt*ne*L;
+    }
+  }
+  // ---------- proyección: ∇²p = ∇·u*/Δt ----------
+  function project(dt,iters){
+    let r0=0,nf=0;
+    for(let k=0;k<NZ;k++)for(let j=0;j<NY;j++)for(let i=0;i<NX;i++){const c=id(i,j,k);if(solid[c]){div[c]=0;continue}
+      const d=(u[iu(i+1,j,k)]-u[iu(i,j,k)])/dx+(v[iv(i,j+1,k)]-v[iv(i,j,k)])/dy+(w[iw(i,j,k+1)]-w[iw(i,j,k)])/dz;div[c]=d;r0+=d*d;nf++}
+    st.resIn=Math.sqrt(r0/Math.max(1,nf));
+    const ax=1/(dx*dx),ay=1/(dy*dy),az=1/(dz*dz),om=1.75;
+    for(let it=0;it<iters;it++)for(let col=0;col<2;col++)
+      for(let k=0;k<NZ;k++)for(let j=0;j<NY;j++)for(let i=(j+k+col)&1;i<NX;i+=2){
+        const c=id(i,j,k);if(solid[c])continue;
+        let sum=0,dg=0;
+        if(uOpen(i,j,k)){sum+=p[c-1]*ax;dg+=ax}
+        if(uOpen(i+1,j,k)){sum+=p[c+1]*ax;dg+=ax}
+        if(vOpen(i,j,k)){sum+=p[c-NX]*ay;dg+=ay}
+        if(vOpen(i,j+1,k)){sum+=p[c+NX]*ay;dg+=ay}
+        if(wOpen(i,j,k)){sum+=p[c-NX*NY]*az;dg+=az}
+        if(k<NZ-1){if(wOpen(i,j,k+1)){sum+=p[c+NX*NY]*az;dg+=az}}
+        else if(wOpen(i,j,NZ)){dg+=az}            // puerta abierta: p = 0 afuera
+        if(dg===0)continue;
+        const pn=(sum-div[c]/dt)/dg;p[c]+=om*(pn-p[c]);
+      }
+    for(let k=0;k<NZ;k++)for(let j=0;j<NY;j++)for(let i=1;i<NX;i++)if(uOpen(i,j,k))u[iu(i,j,k)]-=dt*(p[id(i,j,k)]-p[id(i-1,j,k)])/dx;
+    for(let k=0;k<NZ;k++)for(let j=1;j<NY;j++)for(let i=0;i<NX;i++)if(vOpen(i,j,k))v[iv(i,j,k)]-=dt*(p[id(i,j,k)]-p[id(i,j-1,k)])/dy;
+    for(let k=1;k<=NZ;k++)for(let j=0;j<NY;j++)for(let i=0;i<NX;i++)if(wOpen(i,j,k)){const pr=k<NZ?p[id(i,j,k)]:0;w[iw(i,j,k)]-=dt*(pr-p[id(i,j,k-1)])/dz}
+    enforce(u,v,w);
+    let r=0;
+    for(let k=0;k<NZ;k++)for(let j=0;j<NY;j++)for(let i=0;i<NX;i++){const c=id(i,j,k);if(solid[c])continue;
+      const d=(u[iu(i+1,j,k)]-u[iu(i,j,k)])/dx+(v[iv(i,j+1,k)]-v[iv(i,j,k)])/dy+(w[iw(i,j,k+1)]-w[iw(i,j,k)])/dz;r+=d*d}
+    st.res=Math.sqrt(r/Math.max(1,nf));
+  }
+  // ---------- un paso de tiempo ----------
+  function step(dt){
+    const beta=1/(273.15+P.Tex), rcV=rho*cp*dV;
+    st.Vjet=P.Vdot/st.Afan;
+    // 1. fuerzas: flotación (Boussinesq, referencia = aire de afuera) y ventiladores
+    for(let k=0;k<NZ;k++)for(let j=1;j<NY;j++)for(let i=0;i<NX;i++){const q=iv(i,j,k);if(!vOpen(i,j,k))continue;
+      const Tf=.5*(T[id(i,j-1,k)]+T[id(i,j,k)]);v[q]+=dt*g*beta*(Tf-P.Tex)}
+    const kf=Math.min(1,dt*12);
+    for(let q=0;q<NWf;q++)if(fan[q])w[q]+=(st.Vjet-w[q])*kf;
+    // 2. advección
+    u0.set(u);v0.set(v);w0.set(w);T0.set(T);
+    advect(u,u0,ua,NX+1,NY,NZ,0,.5,.5,dt,0);advect(v,v0,va,NX,NY+1,NZ,.5,0,.5,dt,1);advect(w,w0,wa,NX,NY,NZ+1,.5,.5,0,dt,2);
+    advect(T,T0,Ta,NX,NY,NZ,.5,.5,.5,dt,3);
+    // 3. difusión con viscosidad turbulenta
+    smag();
+    u0.set(u);v0.set(v);w0.set(w);
+    diffuse(u,u0,NX+1,NY,NZ,0,dt);diffuse(v,v0,NX,NY+1,NZ,1,dt);diffuse(w,w0,NX,NY,NZ+1,2,dt);
+    enforce(u,v,w);
+    // 4. proyección
+    project(dt,st.steps<30?80:28);
+    // 5. energía: difusión + fuentes
+    T0.set(T);
+    let Qw=0,Qq=0,Qd=0;
+    const ax=1/(dx*dx),ay=1/(dy*dy),az=1/(dz*dz);
+    for(let k=0;k<NZ;k++)for(let j=0;j<NY;j++)for(let i=0;i<NX;i++){
+      const c=id(i,j,k);if(solid[c])continue;const t=T0[c];
+      const al=alpha+nut[c]/Prt;
+      const g2=(a,b,e)=>{if(a<0||a>=NX||b<0||b>=NY||e<0||e>=NZ)return t;const n=id(a,b,e);return solid[n]?t:T0[n]};
+      let L=(g2(i-1,j,k)+g2(i+1,j,k)-2*t)*ax+(g2(i,j-1,k)+g2(i,j+1,k)-2*t)*ay+(g2(i,j,k-1)+g2(i,j,k+1)-2*t)*az;
+      let q=0;
+      if(wallA[c]){let A=wallA[c];if(P.doorOpen&&k===NZ-1&&door[i+NX*j])A-=dx*dy;const qq=P.U*A*(P.Tex-t);q+=qq;Qw+=qq}
+      if(crateAdj[c]){const sp=Math.hypot(.5*(u[iu(i,j,k)]+u[iu(i+1,j,k)]),.5*(v[iv(i,j,k)]+v[iv(i,j+1,k)]),.5*(w[iw(i,j,k)]+w[iw(i,j,k+1)]));
+        const h=5.7+3.8*sp;const qq=h*crateAdj[c]*(P.Tq-t);q+=qq;Qq+=qq}
+      T[c]=t+dt*(al*L+q/rcV);
+    }
+    // aire de afuera que entra por la puerta
+    if(P.doorOpen)for(let j=0;j<NY;j++)for(let i=0;i<NX;i++){const qf=iw(i,j,NZ);if(!door[i+NX*j])continue;const c=id(i,j,NZ-1);if(solid[c])continue;
+      const vel=w[qf];if(vel<0){const f=Math.min(1,-vel*dt/dz);Qd+=rho*cp*(-vel)*dx*dy*P.Tex;T[c]+=(P.Tex-T[c])*f}else Qd-=rho*cp*vel*dx*dy*T[c]}
+    // 6. evaporador: retorno, termostato con histéresis y aire de salida
+    let s=0,n=0;for(let c=0;c<NC;c++)if(intake[c]){s+=T[c];n++}
+    st.Tret=n?s/n:P.Tset;
+    if(st.on&&st.Tret<P.Tset-0.5)st.on=false;else if(!st.on&&st.Tret>P.Tset+0.5)st.on=true;
+    const mcp=rho*cp*P.Vdot;
+    const Qmax=Math.max(0,mcp*(st.Tret-(P.Te+1)));
+    const Qt=(st.on?Math.min(P.Qcap,Qmax):0)-P.Qfan;          // calor neto que sale del aire en el serpentín
+    const dTc=Qt*dt/(rho*cp*st.Vcoil);
+    let Qa=0,sc=0,nc=0;
+    for(let c=0;c<NC;c++)if(coil[c]){const tn=Math.max(P.Te+1,T[c]-dTc);Qa+=(T[c]-tn)*rcV/dt;T[c]=tn;sc+=tn;nc++}
+    st.Qevap=Qa+P.Qfan; st.Tout=st.Tret-(Qa)/mcp;
+    st.Qwall=Qw;st.Qcheese=Qq;st.Qdoor=Qd;st.t+=dt;st.steps++;
+  }
+  function reset(T0v){u.fill(0);v.fill(0);w.fill(0);p.fill(0);T.fill(T0v);st.t=0;st.steps=0;st.on=true}
+  // ---------- campos derivados para graficar ----------
+  function cellVel(c,out){const k=(c/(NX*NY))|0,j=((c/NX)|0)%NY,i=c%NX;
+    out[0]=.5*(u[iu(i,j,k)]+u[iu(i+1,j,k)]);out[1]=.5*(v[iv(i,j,k)]+v[iv(i,j+1,k)]);out[2]=.5*(w[iw(i,j,k)]+w[iw(i,j,k+1)]);return out}
+  function vort(i,j,k,ax){ // componente de la vorticidad normal al corte
+    const cv=[0,0,0],g=(a,b,e,m)=>{a=Math.max(0,Math.min(NX-1,a));b=Math.max(0,Math.min(NY-1,b));e=Math.max(0,Math.min(NZ-1,e));return cellVel(id(a,b,e),cv)[m]};
+    if(ax==='x')return (g(i,j+1,k,2)-g(i,j-1,k,2))/(2*dy)-(g(i,j,k+1,1)-g(i,j,k-1,1))/(2*dz);
+    if(ax==='y')return (g(i,j,k+1,0)-g(i,j,k-1,0))/(2*dz)-(g(i+1,j,k,2)-g(i-1,j,k,2))/(2*dx);
+    return (g(i+1,j,k,1)-g(i-1,j,k,1))/(2*dx)-(g(i,j+1,k,0)-g(i,j-1,k,0))/(2*dy);
+  }
+  function snap(Tc,Uc){Tc.set(T);for(let k=0;k<NZ;k++)for(let j=0;j<NY;j++)for(let i=0;i<NX;i++){const c=id(i,j,k),q=3*c;
+    Uc[q]=.5*(u[iu(i,j,k)]+u[iu(i+1,j,k)]);Uc[q+1]=.5*(v[iv(i,j,k)]+v[iv(i,j+1,k)]);Uc[q+2]=.5*(w[iw(i,j,k)]+w[iw(i,j,k+1)]);}}
+  return {snap,NX,NY,NZ,dx,dy,dz,NC,id,P,st,T,solid,setGeometry,setDoor,step,reset,uAt,vAt,wAt,TAt,cellVel,vort,
+    get u(){return u},get v(){return v},get w(){return w},EV,FAN,door,crateAdj,intake};
+}
+if(typeof module!=='undefined')module.exports=makeCFD;
+
 (function(){
 const cv=document.getElementById('air3d'); if(!cv) return;
 if(!window.THREE){document.getElementById('airLoading').textContent='No se pudo cargar la librería 3D. Revisa la conexión y recarga la página.';return}
 document.getElementById('airLoading').hidden=true;
 const $=id=>document.getElementById(id);
 const H=2.35, W=1.28, D=2.82, VROOM=H*W*D;
+const NX=13,NY=24,NZ=29,NC=NX*NY*NZ,dx=W/NX,dy=H/NY,dz=D/NZ;
+const id=(i,j,k)=>i+NX*(j+NY*k);
 const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let doorOpen=false,spin=false;
 
 /* ---------- escena ---------- */
 const renderer=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});
 renderer.setPixelRatio(Math.min(1.5,window.devicePixelRatio||1));
 const scene=new THREE.Scene();
-scene.fog=new THREE.FogExp2(0x07111a,0.06);
-const cam=new THREE.PerspectiveCamera(42,1,0.05,50);
-cam.position.set(3.5,2.2,3.9);
-const ctl=new THREE.OrbitControls(cam,cv); ctl.target.set(0,0,0); ctl.enableDamping=true; ctl.dampingFactor=0.08; ctl.minDistance=2.2; ctl.maxDistance=9;
+const cam=new THREE.PerspectiveCamera(42,1,0.05,50); cam.position.set(3.5,2.2,3.9);
+const ctl=new THREE.OrbitControls(cam,cv); ctl.target.set(0,0,0); ctl.enableDamping=true; ctl.dampingFactor=0.08; ctl.minDistance=2.0; ctl.maxDistance=9;
 ctl.enablePan=false; ctl.enabled=false; ctl.enableZoom=false;
-scene.add(new THREE.AmbientLight(0x9fb7c9,0.55));
-const dl=new THREE.DirectionalLight(0xffffff,0.8); dl.position.set(3,5,4); scene.add(dl);
-
-// cuarto: piso, aristas y paredes translúcidas
+scene.add(new THREE.AmbientLight(0x9fb7c9,0.6));
+const dl=new THREE.DirectionalLight(0xffffff,0.75); dl.position.set(3,5,4); scene.add(dl);
 const room=new THREE.Group(); scene.add(room);
-const edges=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(W,H,D)),new THREE.LineBasicMaterial({color:0x8fb4cc,transparent:true,opacity:.55}));
-room.add(edges);
-const wallMat=new THREE.MeshBasicMaterial({color:0x9cc9e6,transparent:true,opacity:.045,side:THREE.BackSide,depthWrite:false});
-room.add(new THREE.Mesh(new THREE.BoxGeometry(W,H,D),wallMat));
-const floor=new THREE.Mesh(new THREE.PlaneGeometry(W,D),new THREE.MeshStandardMaterial({color:0x2a3a46,roughness:.9}));
+room.add(new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(W,H,D)),new THREE.LineBasicMaterial({color:0x8fb4cc,transparent:true,opacity:.6})));
+room.add(new THREE.Mesh(new THREE.BoxGeometry(W,H,D),new THREE.MeshBasicMaterial({color:0x9cc9e6,transparent:true,opacity:.04,side:THREE.BackSide,depthWrite:false})));
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(W,D),new THREE.MeshStandardMaterial({color:0x22313c,roughness:.9}));
 floor.rotation.x=-Math.PI/2; floor.position.y=-H/2+0.001; room.add(floor);
-const grid=new THREE.GridHelper(Math.max(W,D),12,0x3c5566,0x2c4150); grid.position.y=-H/2+0.003; grid.scale.set(W/Math.max(W,D),1,D/Math.max(W,D)); room.add(grid);
-
-// evaporador (pared del fondo, arriba) con dos ventiladores
+// evaporador
 const evap=new THREE.Group(); room.add(evap);
-const evBody=new THREE.Mesh(new THREE.BoxGeometry(1.09,0.35,0.43*0.9),new THREE.MeshStandardMaterial({color:0xe9eef2,roughness:.5,metalness:.1}));
-evap.add(evBody); evap.position.set(0,H/2-0.24,-D/2+0.22);
+evap.add(new THREE.Mesh(new THREE.BoxGeometry(1.1,0.42,0.42),new THREE.MeshStandardMaterial({color:0xe9eef2,roughness:.5,metalness:.1})));
+evap.position.set(0,H/2-0.21,-D/2+0.21);
 const fans=[];
 [-0.26,0.26].forEach(x=>{const g=new THREE.Group();
-  const ring=new THREE.Mesh(new THREE.TorusGeometry(0.13,0.012,8,32),new THREE.MeshStandardMaterial({color:0x222c33}));
-  g.add(ring);
+  g.add(new THREE.Mesh(new THREE.TorusGeometry(0.13,0.012,8,32),new THREE.MeshStandardMaterial({color:0x222c33})));
   for(let i=0;i<5;i++){const b=new THREE.Mesh(new THREE.BoxGeometry(0.02,0.11,0.01),new THREE.MeshStandardMaterial({color:0x36444e}));b.position.y=0.06;const p=new THREE.Group();p.add(b);p.rotation.z=i*2*Math.PI/5;g.add(p)}
-  g.position.set(x,0,0.205); evap.add(g); fans.push(g)});
-// canastillas de queso
+  g.position.set(x,0,0.215); evap.add(g); fans.push(g)});
+// canastillas
 const crates=new THREE.Group(); room.add(crates);
 const crateCols=[0x2f9e5b,0x2f9e5b,0xb9c2c9,0x2a6fd6,0xc8463c,0x2f9e5b];
 let crateBoxes=[];
 function buildCrates(occ){
   crates.clear(); crateBoxes=[];
   const cw=0.4,cd=0.55,ch=0.24;
-  const stacks=[[-0.33,0.35],[0.33,0.35],[-0.33,-0.35],[0.33,-0.35]];
   const levels=Math.max(1,Math.min(8,Math.round(occ*10)));
-  stacks.forEach(([x,z],si)=>{const n=Math.max(1,levels-(si%2));for(let i=0;i<n;i++){
-    const m=new THREE.Mesh(new THREE.BoxGeometry(cw,ch*.95,cd),new THREE.MeshStandardMaterial({color:crateCols[(i+si)%crateCols.length],roughness:.7,transparent:true,opacity:.72}));
+  [[-0.33,0.35],[0.33,0.35],[-0.33,-0.35],[0.33,-0.35]].forEach(([x,z],si)=>{const n=Math.max(1,levels-(si%2));for(let i=0;i<n;i++){
+    const m=new THREE.Mesh(new THREE.BoxGeometry(cw,ch*.95,cd),new THREE.MeshStandardMaterial({color:crateCols[(i+si)%crateCols.length],roughness:.7,transparent:true,opacity:.55,depthWrite:false}));
     m.position.set(x,-H/2+ch/2+i*ch,z); crates.add(m)}
     crateBoxes.push({x0:x-cw/2,x1:x+cw/2,z0:z-cd/2,z1:z+cd/2,top:-H/2+n*ch})});
 }
-// puerta (pared del frente) con cortina
+// puerta
 const door=new THREE.Group(); room.add(door);
-const doorLeaf=new THREE.Mesh(new THREE.BoxGeometry(0.9,1.95,0.04),new THREE.MeshStandardMaterial({color:0xb7c3cc,metalness:.4,roughness:.35,transparent:true,opacity:.85}));
-doorLeaf.position.set(0.45,0,0); const hinge=new THREE.Group(); hinge.add(doorLeaf); hinge.position.set(-0.45,-H/2+0.975,D/2); door.add(hinge);
-const strips=new THREE.Group(); door.add(strips);
-for(let i=0;i<6;i++){const s=new THREE.Mesh(new THREE.PlaneGeometry(0.14,1.9),new THREE.MeshBasicMaterial({color:0xcfe9f7,transparent:true,opacity:.18,side:THREE.DoubleSide,depthWrite:false}));s.position.set(-0.37+i*0.148,-H/2+0.97,D/2-0.03);strips.add(s)}
+const doorLeaf=new THREE.Mesh(new THREE.BoxGeometry(0.9,1.95,0.04),new THREE.MeshStandardMaterial({color:0xb7c3cc,metalness:.4,roughness:.35,transparent:true,opacity:.16,depthWrite:false}));
+doorLeaf.position.set(0.45,0,0);doorLeaf.add(new THREE.LineSegments(new THREE.EdgesGeometry(doorLeaf.geometry),new THREE.LineBasicMaterial({color:0xcfe9f7,transparent:true,opacity:.7}))); const hinge=new THREE.Group(); hinge.add(doorLeaf); hinge.position.set(-0.45,-H/2+0.975,D/2); door.add(hinge);
 
-/* ---------- partículas ---------- */
-const N=reduce?900:(window.innerWidth<700?1100:1800);
-const pos=new Float32Array(N*3), col=new Float32Array(N*3), Tp=new Float32Array(N), life=new Float32Array(N);
-const trailPos=new Float32Array(N*6), trailCol=new Float32Array(N*6);
-const pGeo=new THREE.BufferGeometry(); pGeo.setAttribute('position',new THREE.BufferAttribute(pos,3)); pGeo.setAttribute('color',new THREE.BufferAttribute(col,3));
-const sprite=(()=>{const c=document.createElement('canvas');c.width=c.height=64;const g=c.getContext('2d');const gr=g.createRadialGradient(32,32,0,32,32,32);gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(.35,'rgba(255,255,255,.75)');gr.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=gr;g.fillRect(0,0,64,64);return new THREE.CanvasTexture(c)})();
-const pts=new THREE.Points(pGeo,new THREE.PointsMaterial({size:0.055,map:sprite,vertexColors:true,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending}));
-room.add(pts);
-const tGeo=new THREE.BufferGeometry(); tGeo.setAttribute('position',new THREE.BufferAttribute(trailPos,3)); tGeo.setAttribute('color',new THREE.BufferAttribute(trailCol,3));
-const trails=new THREE.LineSegments(tGeo,new THREE.LineBasicMaterial({vertexColors:true,transparent:true,opacity:.55,blending:THREE.AdditiveBlending,depthWrite:false}));
-room.add(trails);
-
-/* ---------- datos que vienen del simulador ---------- */
-let S={Tin:2,Tex:16,Te:-6,qv:90,occ:.4,Tout:-3,Vdot:2400,speed:1,Tmin:-6,Tmax:16};
-function readData(){
-  const q=window.__qiba; if(!q) return;
-  const P=q.P, C=q.C; if(!P||!C) return;
-  const Vdot=2596*Math.cbrt(Math.max(P.qv,1)/116);                 // m³/h: 2596 con 116 W a 60 Hz (catálogo Hispania); ley de afinidad
-  const rho=0.95, cp=1.006, Qe=Math.min(q.L.QLreq,window.__QEVAP||2.845);   // aire en Duitama; calor que quita el evaporador (carga, hasta su capacidad)
-  const dTair=Qe/(rho*cp*Vdot/3600);
-  const Tout=Math.max(C.Te+0.5,P.tin-dTair);
-  const speed=Vdot/2596;
-  if(Math.abs(S.occ-P.occ)>0.005) buildCrates(P.occ);
-  S={Tin:P.tin,Tex:P.tex,Te:C.Te,qv:P.qv,occ:P.occ,Tout,Vdot,speed,Tmin:Math.min(Tout,C.Te+1)-0.5,Tmax:Math.max(P.tex,P.tin+3)};
-  $('aQ').textContent=Math.round(Vdot)+' m³/h';
-  $('aACH').textContent=Math.round(Vdot/VROOM)+' veces por hora';
-  $('aTout').textContent=S.Tout.toFixed(1)+' °C';
-  $('aV').textContent=(2.6*speed).toFixed(1)+' m/s';
-  $('airTmax').textContent=S.Tmax.toFixed(0)+' °C'; $('airTmin').textContent=S.Tmin.toFixed(0)+' °C';
-}
+/* ---------- solver: en un hilo aparte (Web Worker) y, si no se puede, en el hilo principal ---------- */
+const Tc=new Float32Array(NC), Uc=new Float32Array(3*NC), SOL=new Uint8Array(NC);
+let ST={t:0,on:true,Tout:2,Tret:2,Qevap:0,Qwall:0,Qcheese:0,Qdoor:0,res:0,resIn:0,Vjet:0,steps:0};
+let haveData=false, worker=null, local=null, simRun=!reduce, simSpeed=1;
+const params={Tset:2,Tex:16,Tq:16,Te:-6,Vdot:0.721,Qcap:2845,Qfan:116};
+function wsrc(){return `${makeCFD.toString()}
+let c=null,run=true,speed=1,last=0,acc=0;const Tc=new Float32Array(${NC}),Uc=new Float32Array(${3*NC});
+onmessage=e=>{const m=e.data;
+ if(m.type==='init'){c=makeCFD({W:${W},H:${H},D:${D},NX:${NX},NY:${NY},NZ:${NZ}});c.setGeometry(m.crates);c.reset(m.T0);Object.assign(c.P,m.P);last=Date.now();tick()}
+ else if(m.type==='geom')c.setGeometry(m.crates);
+ else if(m.type==='P')Object.assign(c.P,m.P);
+ else if(m.type==='door')c.setDoor(m.open);
+ else if(m.type==='reset'){c.reset(m.T0)}
+ else if(m.type==='run'){run=m.on;speed=m.speed||speed}
+};
+function tick(){const now=Date.now();let el=(now-last)/1000;last=now;if(run){acc=Math.min(acc+el*speed,0.3);const t0=Date.now();
+  while(acc>=0.04&&Date.now()-t0<40){c.step(0.04);acc-=0.04}
+  c.snap(Tc,Uc);postMessage({Tc,Uc,sol:c.solid,st:c.st})}
+ setTimeout(tick,run?16:120)}`}
+function post(m){if(worker)worker.postMessage(m);else if(local)localMsg(m)}
+function localMsg(m){const c=local.c;
+  if(m.type==='geom')c.setGeometry(m.crates);else if(m.type==='P')Object.assign(c.P,m.P);else if(m.type==='door')c.setDoor(m.open);else if(m.type==='reset')c.reset(m.T0);else if(m.type==='run'){}}
+function onData(d){Tc.set(d.Tc);Uc.set(d.Uc);SOL.set(d.sol);ST=d.st;haveData=true}
+function startLocal(){if(local)return;const c=makeCFD({W,H,D,NX,NY,NZ});c.setGeometry(crateBoxes);c.reset(params.Tset);Object.assign(c.P,params);local={c,acc:0};
+  if(worker){try{worker.terminate()}catch(e){}worker=null}}
+function localStep(dt){if(!local||!simRun)return;local.acc=Math.min(local.acc+dt*simSpeed,0.12);const t0=performance.now();
+  while(local.acc>=0.04&&performance.now()-t0<12){local.c.step(0.04);local.acc-=0.04}
+  local.c.snap(Tc,Uc);SOL.set(local.c.solid);ST=local.c.st;haveData=true}
 buildCrates(.4);
+try{
+  const url=URL.createObjectURL(new Blob([wsrc()],{type:'text/javascript'}));
+  worker=new Worker(url);
+  worker.onmessage=e=>onData(e.data);
+  worker.onerror=()=>startLocal();
+  worker.postMessage({type:'init',crates:crateBoxes,T0:params.Tset,P:params});
+  setTimeout(()=>{if(!haveData)startLocal()},2500);
+}catch(e){startLocal()}
 
-/* ---------- campo de velocidad: celda de recirculación + remolinos ---------- */
-function vel(x,y,z,t,out){
-  const Y=(y+H/2)/H, Z=(z+D/2)/D, A=S.speed*1.15;
-  const jet=1+2.2*Math.exp(-Math.pow((1-Y)/0.11,2))*(Z<0.98?1:0);
-  let uz=-A*(Math.PI/H)*Math.sin(Math.PI*Z)*Math.cos(Math.PI*Y)*jet*H*0.55;
-  let uy= A*(Math.PI/D)*Math.sin(Math.PI*Y)*Math.cos(Math.PI*Z)*D*0.55;
-  // remolinos secundarios (rotacional de un campo que se mueve con el tiempo)
-  const k1=2*Math.PI*2, ph=t*0.6;
-  let ux= 0.32*A*Math.sin(k1*Z+ph)*Math.cos(Math.PI*2*Y-ph*0.7);
-  uy+= 0.22*A*Math.sin(Math.PI*2*(x/W+0.5)+ph)*Math.sin(k1*Z*0.5-ph);
-  uz+= 0.18*A*Math.cos(Math.PI*2*(x/W+0.5)-ph*0.8)*Math.sin(Math.PI*3*Y+ph);
-  // la puerta abierta: entra aire caliente arriba, sale aire frío abajo
-  if(doorOpen&&Z>0.8&&Math.abs(x)<0.45){const f=(Z-0.8)/0.2; if(Y>0.55){uz-=1.1*f;uy-=0.25*f}else{uz+=0.9*f}}
-  out[0]=ux;out[1]=uy;out[2]=uz;
+/* ---------- partículas que viaja con la velocidad calculada ---------- */
+const N=reduce?700:(window.innerWidth<700?900:1500);
+const pos=new Float32Array(N*3),col=new Float32Array(N*3),life=new Float32Array(N);
+const trailPos=new Float32Array(N*6),trailCol=new Float32Array(N*6);
+const pGeo=new THREE.BufferGeometry();pGeo.setAttribute('position',new THREE.BufferAttribute(pos,3));pGeo.setAttribute('color',new THREE.BufferAttribute(col,3));
+const sprite=(()=>{const c=document.createElement('canvas');c.width=c.height=64;const g=c.getContext('2d');const gr=g.createRadialGradient(32,32,0,32,32,32);gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(.35,'rgba(255,255,255,.7)');gr.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=gr;g.fillRect(0,0,64,64);return new THREE.CanvasTexture(c)})();
+const pts=new THREE.Points(pGeo,new THREE.PointsMaterial({size:0.045,map:sprite,vertexColors:true,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending}));room.add(pts);
+const tGeo=new THREE.BufferGeometry();tGeo.setAttribute('position',new THREE.BufferAttribute(trailPos,3));tGeo.setAttribute('color',new THREE.BufferAttribute(trailCol,3));
+const trails=new THREE.LineSegments(tGeo,new THREE.LineBasicMaterial({vertexColors:true,transparent:true,opacity:.55,blending:THREE.AdditiveBlending,depthWrite:false}));room.add(trails);
+// interpolación trilineal en los centros de celda
+function cs(x,y,z){let fx=(x+W/2)/dx-.5,fy=(y+H/2)/dy-.5,fz=(z+D/2)/dz-.5;fx=Math.max(0,Math.min(NX-1.001,fx));fy=Math.max(0,Math.min(NY-1.001,fy));fz=Math.max(0,Math.min(NZ-1.001,fz));
+  const i=fx|0,j=fy|0,k=fz|0;return [i,j,k,fx-i,fy-j,fz-k]}
+function triS(F,s,m,x,y,z){const [i,j,k,a,b,c]=cs(x,y,z);const g=(I,J,K)=>F[s*id(I,J,K)+m];
+  return ((g(i,j,k)*(1-a)+g(i+1,j,k)*a)*(1-b)+(g(i,j+1,k)*(1-a)+g(i+1,j+1,k)*a)*b)*(1-c)+((g(i,j,k+1)*(1-a)+g(i+1,j,k+1)*a)*(1-b)+(g(i,j+1,k+1)*(1-a)+g(i+1,j+1,k+1)*a)*b)*c}
+const cellOf=(x,y,z)=>{const i=Math.floor((x+W/2)/dx),j=Math.floor((y+H/2)/dy),k=Math.floor((z+D/2)/dz);if(i<0||i>=NX||j<0||j>=NY||k<0||k>=NZ)return -1;return id(i,j,k)};
+function spawn(i){
+  for(let n=0;n<20;n++){let x,y,z;
+    if(Math.random()<0.3){x=(Math.random()-.5)*0.8;y=H/2-0.08-Math.random()*0.3;z=-D/2+0.45+Math.random()*0.15}
+    else if(doorOpen&&Math.random()<0.25){x=(Math.random()-.5)*0.85;y=-H/2+0.9+Math.random()*1.0;z=D/2-0.05}
+    else{x=(Math.random()-.5)*W*.96;y=(Math.random()-.5)*H*.96;z=(Math.random()-.5)*D*.96}
+    const c=cellOf(x,y,z);if(c>=0&&!SOL[c]){pos[i*3]=x;pos[i*3+1]=y;pos[i*3+2]=z;break}}
+  life[i]=3+Math.random()*7;trailPos.set([pos[i*3],pos[i*3+1],pos[i*3+2],pos[i*3],pos[i*3+1],pos[i*3+2]],i*6);
 }
-function spawn(i,atDoor){
-  if(atDoor){pos[i*3]=(Math.random()-.5)*0.8;pos[i*3+1]=-H/2+H*(0.6+Math.random()*0.35);pos[i*3+2]=D/2-0.02;Tp[i]=S.Tex}
-  else{pos[i*3]=(Math.random()-.5)*0.95;pos[i*3+1]=H/2-0.12-Math.random()*0.2;pos[i*3+2]=-D/2+0.48+Math.random()*0.08;Tp[i]=S.Tout}
-  life[i]=3+Math.random()*7;
-}
-for(let i=0;i<N;i++){spawn(i);life[i]=Math.random()*9;pos[i*3]=(Math.random()-.5)*W*.9;pos[i*3+1]=(Math.random()-.5)*H*.9;pos[i*3+2]=(Math.random()-.5)*D*.9;Tp[i]=S.Tin}
+for(let i=0;i<N;i++){spawn(i);life[i]=Math.random()*9}
 
-/* ---------- color según temperatura ---------- */
-const stops=[[0,[0.16,0.40,1.0]],[0.3,[0.25,0.88,1.0]],[0.55,[0.92,0.97,1.0]],[0.78,[1.0,0.70,0.28]],[1,[1.0,0.33,0.2]]];
-function tcol(T,o,i){const t=Math.max(0,Math.min(1,(T-S.Tmin)/(S.Tmax-S.Tmin)));
-  let a=stops[0],b=stops[stops.length-1];for(let k=0;k<stops.length-1;k++)if(t>=stops[k][0]&&t<=stops[k+1][0]){a=stops[k];b=stops[k+1];break}
+/* ---------- mapas de color ---------- */
+const MAPS={
+  T:[[0,[0.16,0.40,1.0]],[0.3,[0.25,0.88,1.0]],[0.55,[0.92,0.97,1.0]],[0.78,[1.0,0.70,0.28]],[1,[1.0,0.33,0.2]]],
+  U:[[0,[0.19,0.07,0.23]],[0.25,[0.27,0.53,0.98]],[0.5,[0.11,0.90,0.71]],[0.75,[0.98,0.73,0.22]],[1,[0.85,0.15,0.05]]],
+  O:[[0,[0.12,0.35,1.0]],[0.4,[0.55,0.75,1.0]],[0.5,[0.95,0.97,1.0]],[0.6,[1.0,0.7,0.6]],[1,[1.0,0.25,0.18]]]};
+const CSS={T:'linear-gradient(180deg,#ff5433,#ffb347 22%,#eaf6ff 45%,#40e0ff 70%,#2966ff)',U:'linear-gradient(180deg,#d9260d,#fabb38 25%,#1ce6b5 50%,#4588fa 75%,#30123b)',O:'linear-gradient(180deg,#ff4030,#ffb39a 40%,#f2f6fa 50%,#8cbfff 60%,#1f5aff)'};
+function cmap(name,t,o,i){const st=MAPS[name];t=t<0?0:t>1?1:t;let a=st[0],b=st[st.length-1];for(let k=0;k<st.length-1;k++)if(t>=st[k][0]&&t<=st[k+1][0]){a=st[k];b=st[k+1];break}
   const u=(t-a[0])/((b[0]-a[0])||1);o[i]=a[1][0]+(b[1][0]-a[1][0])*u;o[i+1]=a[1][1]+(b[1][1]-a[1][1])*u;o[i+2]=a[1][2]+(b[1][2]-a[1][2])*u}
+let Tlo=0,Thi=6,Umax=2.5,Omax=8;
+
+/* ---------- corte: campo de color, vectores y malla ---------- */
+const view={f:'T',ax:'x',pos:0.5,mesh:true,vec:true,parts:true};
+const sliceTex=new THREE.DataTexture(new Uint8Array(4*NZ*NY),NZ,NY,THREE.RGBAFormat);sliceTex.magFilter=THREE.LinearFilter;sliceTex.minFilter=THREE.LinearFilter;
+const sliceMat=new THREE.MeshBasicMaterial({map:sliceTex,transparent:true,opacity:.9,side:THREE.DoubleSide,depthWrite:false,polygonOffset:true,polygonOffsetFactor:1,polygonOffsetUnits:1});
+const sliceGeo=new THREE.BufferGeometry();sliceGeo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(18),3));sliceGeo.setAttribute('uv',new THREE.BufferAttribute(new Float32Array([0,0,1,0,1,1,0,0,1,1,0,1]),2));
+const slice=new THREE.Mesh(sliceGeo,sliceMat);room.add(slice);
+const MAXA=Math.max(NY*NZ,NX*NZ,NX*NY);
+const vecPos=new Float32Array(MAXA*18),vecGeo=new THREE.BufferGeometry();vecGeo.setAttribute('position',new THREE.BufferAttribute(vecPos,3));
+const vecs=new THREE.LineSegments(vecGeo,new THREE.LineBasicMaterial({color:0xffffff,transparent:true,opacity:.85}));room.add(vecs);
+const meshPos=new Float32Array(((NY+1)+(NZ+1)+(NX+1))*2*3*2+10),meshGeo=new THREE.BufferGeometry();meshGeo.setAttribute('position',new THREE.BufferAttribute(meshPos,3));
+const meshLines=new THREE.LineSegments(meshGeo,new THREE.LineBasicMaterial({color:0x0b1d2c,transparent:true,opacity:.55}));room.add(meshLines);
+// malla de las paredes (piso, fondo y lateral)
+const wm=[];const e=0.003;
+for(let i=0;i<=NX;i++){const x=-W/2+i*dx;wm.push(x,-H/2+e,-D/2,x,-H/2+e,D/2, x,-H/2,-D/2+e,x,H/2,-D/2+e)}
+for(let k=0;k<=NZ;k++){const z=-D/2+k*dz;wm.push(-W/2,-H/2+e,z,W/2,-H/2+e,z, -W/2+e,-H/2,z,-W/2+e,H/2,z)}
+for(let j=0;j<=NY;j++){const y=-H/2+j*dy;wm.push(-W/2,y,-D/2+e,W/2,y,-D/2+e, -W/2+e,y,-D/2,-W/2+e,y,D/2)}
+const wallMesh=new THREE.LineSegments(new THREE.BufferGeometry().setAttribute('position',new THREE.BufferAttribute(new Float32Array(wm),3)),new THREE.LineBasicMaterial({color:0x5f8aa6,transparent:true,opacity:.28}));room.add(wallMesh);
+
+function layer(){const n=view.ax==='x'?NX:view.ax==='y'?NY:NZ;return Math.max(0,Math.min(n-1,Math.round(view.pos*(n-1))))}
+function sliceGeom(){
+  const L=layer(),p=sliceGeo.attributes.position.array;let q=[];
+  if(view.ax==='x'){const x=-W/2+(L+.5)*dx;q=[[x,-H/2,-D/2],[x,-H/2,D/2],[x,H/2,D/2],[x,H/2,-D/2]]}
+  else if(view.ax==='y'){const y=-H/2+(L+.5)*dy;q=[[-W/2,y,-D/2],[W/2,y,-D/2],[W/2,y,D/2],[-W/2,y,D/2]]}
+  else{const z=-D/2+(L+.5)*dz;q=[[-W/2,-H/2,z],[W/2,-H/2,z],[W/2,H/2,z],[-W/2,H/2,z]]}
+  [q[0],q[1],q[2],q[0],q[2],q[3]].forEach((v,i)=>{p[3*i]=v[0];p[3*i+1]=v[1];p[3*i+2]=v[2]});sliceGeo.attributes.position.needsUpdate=true;
+  const [na,nb]=view.ax==='x'?[NZ,NY]:view.ax==='y'?[NX,NZ]:[NX,NY];
+  if(sliceTex.image.width!==na||sliceTex.image.height!==nb){sliceTex.image={data:new Uint8Array(4*na*nb),width:na,height:nb}}
+  // malla del corte
+  let m=0;const put=(a,b)=>{meshPos[m++]=a[0];meshPos[m++]=a[1];meshPos[m++]=a[2];meshPos[m++]=b[0];meshPos[m++]=b[1];meshPos[m++]=b[2]};
+  if(view.ax==='x'){const x=q[0][0];for(let k=0;k<=NZ;k++){const z=-D/2+k*dz;put([x,-H/2,z],[x,H/2,z])}for(let j=0;j<=NY;j++){const y=-H/2+j*dy;put([x,y,-D/2],[x,y,D/2])}}
+  else if(view.ax==='y'){const y=q[0][1];for(let i=0;i<=NX;i++){const x=-W/2+i*dx;put([x,y,-D/2],[x,y,D/2])}for(let k=0;k<=NZ;k++){const z=-D/2+k*dz;put([-W/2,y,z],[W/2,y,z])}}
+  else{const z=q[0][2];for(let i=0;i<=NX;i++){const x=-W/2+i*dx;put([x,-H/2,z],[x,H/2,z])}for(let j=0;j<=NY;j++){const y=-H/2+j*dy;put([-W/2,y,z],[W/2,y,z])}}
+  meshGeo.setDrawRange(0,m/3);meshGeo.attributes.position.needsUpdate=true;
+}
+const cc=[0,0,0];
+function vortCell(i,j,k){const g=(a,b,e,m)=>{a=Math.max(0,Math.min(NX-1,a));b=Math.max(0,Math.min(NY-1,b));e=Math.max(0,Math.min(NZ-1,e));return Uc[3*id(a,b,e)+m]};
+  if(view.ax==='x')return (g(i,j+1,k,2)-g(i,j-1,k,2))/(2*dy)-(g(i,j,k+1,1)-g(i,j,k-1,1))/(2*dz);
+  if(view.ax==='y')return (g(i,j,k+1,0)-g(i,j,k-1,0))/(2*dz)-(g(i+1,j,k,2)-g(i-1,j,k,2))/(2*dx);
+  return (g(i+1,j,k,1)-g(i-1,j,k,1))/(2*dx)-(g(i,j+1,k,0)-g(i,j-1,k,0))/(2*dy)}
+function updateRanges(){
+  const Ts=[],Us=[],Os=[];for(let c=0;c<NC;c+=3){if(SOL[c])continue;Ts.push(Tc[c]);Us.push(Math.hypot(Uc[3*c],Uc[3*c+1],Uc[3*c+2]))}
+  Ts.sort((a,b)=>a-b);Us.sort((a,b)=>a-b);
+  const lo=Ts[Math.floor(Ts.length*.02)],hi=Ts[Math.floor(Ts.length*.98)];const mid=(lo+hi)/2,sp=Math.max(3,hi-lo);
+  Tlo+=(mid-sp/2-Tlo)*.15;Thi+=(mid+sp/2-Thi)*.15;Umax+=(Math.max(0.5,Us[Math.floor(Us.length*.98)])-Umax)*.15;
+}
+function drawSlice(){
+  const L=layer(),img=sliceTex.image,d=img.data,na=img.width,nb=img.height;const om=[];
+  const ijk=(a,b)=>view.ax==='x'?[L,b,a]:view.ax==='y'?[a,L,b]:[a,b,L];
+  if(view.f==='O'){for(let b=0;b<nb;b++)for(let a=0;a<na;a++){const [i,j,k]=ijk(a,b);if(!SOL[id(i,j,k)])om.push(Math.abs(vortCell(i,j,k)))}om.sort((x,y)=>x-y);Omax+=(Math.max(1,om[Math.floor(om.length*.95)]||1)-Omax)*.2}
+  let v=0;const vmaxRef=Math.max(0.6,Umax);
+  for(let b=0;b<nb;b++)for(let a=0;a<na;a++){
+    const [i,j,k]=ijk(a,b),c=id(i,j,k),o=4*(a+na*b);
+    if(SOL[c]){d[o]=36;d[o+1]=50;d[o+2]=60;d[o+3]=255;continue}
+    let t;if(view.f==='T')t=(Tc[c]-Tlo)/(Thi-Tlo);else if(view.f==='U')t=Math.hypot(Uc[3*c],Uc[3*c+1],Uc[3*c+2])/Umax;else t=0.5+0.5*vortCell(i,j,k)/Omax;
+    cmap(view.f,t,cc,0);d[o]=cc[0]*255;d[o+1]=cc[1]*255;d[o+2]=cc[2]*255;d[o+3]=235;
+    if(view.vec){
+      const x=-W/2+(i+.5)*dx,y=-H/2+(j+.5)*dy,z=-D/2+(k+.5)*dz;
+      let ua=0,ub=0;const U=Uc[3*c],V=Uc[3*c+1],Wv=Uc[3*c+2];
+      if(view.ax==='x'){ua=Wv;ub=V}else if(view.ax==='y'){ua=U;ub=Wv}else{ua=U;ub=V}
+      const mag=Math.hypot(ua,ub);if(mag<0.02)continue;
+      const cell=view.ax==='x'?Math.min(dy,dz):view.ax==='y'?Math.min(dx,dz):Math.min(dx,dy);
+      const len=Math.min(1.25,0.25+mag/vmaxRef)*cell*0.85, ea=ua/mag, eb=ub/mag;
+      const P=(s,n)=>view.ax==='x'?[x,y+n,z+s]:view.ax==='y'?[x+s,y,z+n]:[x+s,y+n,z];
+      const s0=-len/2*ea,n0=-len/2*eb,s1=len/2*ea,n1=len/2*eb,hs=len*0.35;
+      const tip=P(s1,n1),tail=P(s0,n0),h1=P(s1-hs*(ea*0.87-eb*0.5),n1-hs*(eb*0.87+ea*0.5)),h2=P(s1-hs*(ea*0.87+eb*0.5),n1-hs*(eb*0.87-ea*0.5));
+      const off=view.ax==='x'?[0.004,0,0]:view.ax==='y'?[0,0.004,0]:[0,0,0.004];
+      for(const [A,B] of [[tail,tip],[tip,h1],[tip,h2]]){vecPos[v++]=A[0]+off[0];vecPos[v++]=A[1]+off[1];vecPos[v++]=A[2]+off[2];vecPos[v++]=B[0]+off[0];vecPos[v++]=B[1]+off[1];vecPos[v++]=B[2]+off[2]}
+    }
+  }
+  sliceTex.needsUpdate=true;vecGeo.setDrawRange(0,v/3);vecGeo.attributes.position.needsUpdate=true;
+  const lab=view.f==='T'?[Thi.toFixed(1)+' °C',Tlo.toFixed(1)+' °C']:view.f==='U'?[Umax.toFixed(1)+' m/s','0 m/s']:['+'+Omax.toFixed(0)+' 1/s','−'+Omax.toFixed(0)+' 1/s'];
+  $('airTmax').textContent=lab[0];$('airTmin').textContent=lab[1];
+  $('airField').textContent={T:'Temperatura',U:'Velocidad',O:'Vorticidad'}[view.f]||'';
+}
+function applyView(){
+  slice.visible=view.f!=='none';vecs.visible=view.vec&&view.f!=='none';meshLines.visible=view.mesh&&view.f!=='none';wallMesh.visible=view.mesh;
+  pts.visible=view.parts;trails.visible=view.parts;
+  document.querySelector('.air-scale i').style.background=CSS[view.f]||CSS.T;
+  document.querySelectorAll('[data-vf]').forEach(b=>{const on=b.dataset.vf===view.f;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});
+  document.querySelectorAll('[data-va]').forEach(b=>{const on=b.dataset.va===view.ax;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});
+  tog('aMesh',view.mesh);tog('aVec',view.vec);tog('aTrail',view.parts);
+  if($('aPos'))$('aPos').value=Math.round(view.pos*100);
+  const nL=view.ax==='x'?NX:view.ax==='y'?NY:NZ;if($('oaPos'))$('oaPos').textContent='Capa '+(layer()+1)+' de '+nL;
+  sliceGeom();
+}
+
+/* ---------- datos que vienen del laboratorio ---------- */
+let occNow=.4;
+function readData(){
+  const q=window.__qiba;if(!q)return;const P=q.P,C=q.C;if(!P||!C)return;
+  const Vdot=2596*Math.cbrt(Math.max(P.qv,1)/116);
+  params.Tset=P.tin;params.Tex=P.tex;params.Te=C.Te;params.Vdot=Vdot/3600;params.Qfan=P.qv;params.Qcap=1000*(window.__QEVAP||2.845);
+  post({type:'P',P:params});
+  if(Math.abs(occNow-P.occ)>0.005){occNow=P.occ;buildCrates(P.occ);post({type:'geom',crates:crateBoxes})}
+  $('aQ').textContent=Math.round(Vdot)+' m³/h';$('aACH').textContent=Math.round(Vdot/VROOM)+' veces por hora';
+}
 
 /* ---------- controles ---------- */
-let doorOpen=false, trailsOn=true, spin=false, paused=reduce;
-function tog(id,v,on,off){const b=$(id);b.classList.toggle('on',v);b.setAttribute('aria-pressed',v);if(on)b.textContent=v?on:off}
-$('aDoor').onclick=()=>{doorOpen=!doorOpen;tog('aDoor',doorOpen,'Cerrar la puerta','Abrir la puerta')};
-$('aTrail').onclick=()=>{trailsOn=!trailsOn;trails.visible=trailsOn;tog('aTrail',trailsOn)};
+function tog(idb,v,on,off){const b=$(idb);if(!b)return;b.classList.toggle('on',v);b.setAttribute('aria-pressed',v);if(on)b.textContent=v?on:off}
+function setDoor(v){doorOpen=!!v;tog('aDoor',doorOpen,'Cerrar la puerta','Abrir la puerta');post({type:'door',open:doorOpen})}
+$('aDoor').onclick=()=>setDoor(!doorOpen);
+$('aTrail').onclick=()=>{view.parts=!view.parts;applyView()};
 $('aSpin').onclick=()=>{spin=!spin;ctl.autoRotate=spin;ctl.autoRotateSpeed=1.2;tog('aSpin',spin)};
-$('aPause').onclick=()=>{paused=!paused;tog('aPause',paused,'Reanudar','Pausar')};
-if(paused) tog('aPause',true,'Reanudar','Pausar');
+$('aPause').onclick=()=>{simRun=!simRun;tog('aPause',!simRun,'Reanudar','Pausar');post({type:'run',on:simRun})};
+if(!simRun){tog('aPause',true,'Reanudar','Pausar');post({type:'run',on:false})}
+$('aMesh').onclick=()=>{view.mesh=!view.mesh;applyView()};
+$('aVec').onclick=()=>{view.vec=!view.vec;applyView()};
+$('aReset').onclick=()=>{post({type:'reset',T0:params.Tset});hist.length=0};
+document.querySelectorAll('[data-vf]').forEach(b=>b.onclick=()=>{view.f=b.dataset.vf;applyView()});
+document.querySelectorAll('[data-va]').forEach(b=>b.onclick=()=>{view.ax=b.dataset.va;view.pos=b.dataset.va==='y'?0.55:0.5;applyView()});
+$('aPos').oninput=e=>{view.pos=e.target.value/100;applyView()};
+$('aTq').oninput=e=>{params.Tq=+e.target.value;$('oaTq').textContent=params.Tq.toFixed(1)+' °C';post({type:'P',P:{Tq:params.Tq}})};
+$('aSp').oninput=e=>{simSpeed=+e.target.value;$('oaSp').textContent='×'+simSpeed;post({type:'run',on:simRun,speed:simSpeed})};
+
+/* ---------- gráficas ---------- */
+const hist=[];let lastHist=-1;
+const probes={sup:[0,H/2-0.25,-D/2+0.75],cen:[0,0,0],qs:[0,-H/2+0.2,D/2-0.35]};
+function probe(p){return triS(Tc,1,0,p[0],p[1],p[2])}
+function sample(){
+  if(!haveData||ST.t===lastHist)return;lastHist=ST.t;
+  if(hist.length&&ST.t<hist[hist.length-1].t)hist.length=0;
+  let s=0,n=0;for(let c=0;c<NC;c++)if(!SOL[c]){s+=Tc[c];n++}
+  hist.push({t:ST.t,sup:probe(probes.sup),cen:probe(probes.cen),qs:probe(probes.qs),ret:ST.Tret,mean:s/n,res:ST.res,on:ST.on});
+  while(hist.length&&hist[hist.length-1].t-hist[0].t>90)hist.shift();
+}
+function shown(c){return c&&c.offsetParent!==null}
+function cvs(c){const r=c.getBoundingClientRect(),dpr=Math.min(2,window.devicePixelRatio||1);if(c.width!==Math.round(r.width*dpr)){c.width=Math.round(r.width*dpr);c.height=Math.round(r.height*dpr)}const g=c.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);g.clearRect(0,0,r.width,r.height);return [g,r.width,r.height]}
+const SER=[['sup','Salida del evaporador','#40e0ff'],['ret','Retorno','#CFEFFF'],['mean','Media del aire','#F59E0B'],['qs','Junto al queso','#FF5A5F']];
+function axes(g,w,h,l,b,ymin,ymax,ticks,fmt,xlab){
+  g.strokeStyle='rgba(207,239,255,.18)';g.fillStyle='#A9C1D6';g.font='10px "Geist Mono",monospace';g.lineWidth=1;
+  ticks.forEach(v=>{const y=b-(v-ymin)/(ymax-ymin)*(b-8);g.beginPath();g.moveTo(l,y);g.lineTo(w-6,y);g.stroke();g.fillText(fmt(v),2,y+3)});
+  if(xlab){g.fillText(xlab,w-6-g.measureText(xlab).width,h-2)}
+}
+function chartT(){const c=$('cfdT');if(!shown(c))return;const [g,w,h]=cvs(c);if(hist.length<2)return;
+  const l=34,b=h-14;let lo=1e9,hi=-1e9;hist.forEach(p=>SER.forEach(s=>{lo=Math.min(lo,p[s[0]]);hi=Math.max(hi,p[s[0]])}));lo=Math.floor(lo-0.5);hi=Math.ceil(hi+0.5);
+  const t0=hist[0].t,t1=Math.max(t0+10,hist[hist.length-1].t);
+  // franjas con el compresor encendido
+  g.fillStyle='rgba(45,140,255,.12)';for(let i=1;i<hist.length;i++)if(hist[i].on){const x0=l+(hist[i-1].t-t0)/(t1-t0)*(w-6-l),x1=l+(hist[i].t-t0)/(t1-t0)*(w-6-l);g.fillRect(x0,8,x1-x0+0.5,b-8)}
+  const st=Math.max(1,Math.round((hi-lo)/4));const tk=[];for(let v=lo;v<=hi;v+=st)tk.push(v);
+  axes(g,w,h,l,b,lo,hi,tk,v=>v+'°',Math.round(t1-t0)+' s');
+  SER.forEach(([k,,colr])=>{g.strokeStyle=colr;g.lineWidth=1.8;g.beginPath();hist.forEach((p,i)=>{const x=l+(p.t-t0)/(t1-t0)*(w-6-l),y=b-(p[k]-lo)/(hi-lo)*(b-8);i?g.lineTo(x,y):g.moveTo(x,y)});g.stroke()});
+}
+function chartR(){const c=$('cfdR');if(!shown(c))return;const [g,w,h]=cvs(c);if(hist.length<2)return;
+  const l=34,b=h-14,lo=-6,hi=-1,t0=hist[0].t,t1=Math.max(t0+10,hist[hist.length-1].t);
+  axes(g,w,h,l,b,lo,hi,[-6,-5,-4,-3,-2,-1],v=>'1e'+v,Math.round(t1-t0)+' s');
+  g.strokeStyle='#22B573';g.lineWidth=1.8;g.beginPath();hist.forEach((p,i)=>{const y0=Math.log10(Math.max(1e-6,p.res));const x=l+(p.t-t0)/(t1-t0)*(w-6-l),y=b-(Math.min(hi,y0)-lo)/(hi-lo)*(b-8);i?g.lineTo(x,y):g.moveTo(x,y)});g.stroke();
+}
+function chartP(){const c=$('cfdP');if(!shown(c)||!haveData)return;const [g,w,h]=cvs(c);
+  // perfil de la velocidad a lo largo del cuarto (componente z) en el centro, de piso a techo
+  const l=34,b=h-14,vm=Math.max(1,Math.ceil(Umax));const X=v=>l+(v+vm)/(2*vm)*(w-6-l);
+  g.strokeStyle='rgba(207,239,255,.18)';g.fillStyle='#A9C1D6';g.font='10px "Geist Mono",monospace';
+  [-vm,0,vm].forEach(v=>{g.beginPath();g.moveTo(X(v),8);g.lineTo(X(v),b);g.stroke();const s=(v>0?'+':'')+v;g.fillText(s,X(v)-g.measureText(s).width/2,h-2)});
+  g.fillText('techo',2,14);g.fillText('piso',2,b);
+  [[0,'#40e0ff'],[0.7,'#F59E0B']].forEach(([zz,colr])=>{g.strokeStyle=colr;g.lineWidth=1.8;g.beginPath();
+    for(let j=0;j<NY;j++){const y=-H/2+(j+.5)*dy;const val=triS(Uc,3,2,0,y,zz);const py=b-(j+.5)/NY*(b-8);j?g.lineTo(X(val),py):g.moveTo(X(val),py)}g.stroke()});
+}
+function panel(){
+  if(!haveData)return;
+  const f1=v=>(v>=0?'':'−')+Math.abs(v).toFixed(1);
+  $('aTout').textContent=f1(ST.Tout)+' °C';
+  let vmax=0;for(let k=0;k<NZ;k++)for(let j=NY-4;j<NY;j++)for(let i=0;i<NX;i++){const c=id(i,j,k);if(SOL[c])continue;const s=Math.hypot(Uc[3*c],Uc[3*c+1],Uc[3*c+2]);if(s>vmax)vmax=s}
+  $('aV').textContent=vmax.toFixed(1)+' m/s';
+  $('cfdComp').textContent=ST.on?'Compresor encendido':'Compresor apagado';$('cfdComp').classList.toggle('on',ST.on);
+  const kw=v=>Math.round(v)+' W';
+  $('bWall').textContent=kw(ST.Qwall);$('bQ').textContent=kw(ST.Qcheese);$('bDoor').textContent=kw(Math.max(0,ST.Qdoor));$('bFan').textContent=kw(params.Qfan);$('bEv').textContent=kw(ST.Qevap);
+  const tm=hist.length?hist[hist.length-1].mean:0;$('bTm').textContent=f1(tm)+' °C';
+  $('hSolve').textContent=`t ${ST.t.toFixed(1)} s · residuo ${ST.res.toExponential(1)}`;
+  $('hComp').textContent=ST.on?'ON':'OFF';$('hComp').classList.toggle('on',ST.on);
+}
 
 /* ---------- bucle ---------- */
-const v=[0,0,0]; let t=0, last=performance.now(), visible=true;
+let t=0,last=performance.now(),visible=true,lastUI=0,lastSlice=0;
 new IntersectionObserver(e=>{visible=e[0].isIntersecting}).observe(cv);
 function resize(){const r=cv.parentElement.getBoundingClientRect();renderer.setSize(r.width,r.height,false);cam.aspect=r.width/r.height;cam.updateProjectionMatrix()}
-window.addEventListener('resize',resize); resize();
-function step(dt){
-  t+=dt;
-  const doorZ=D/2;
-  for(let i=0;i<N;i++){
-    const j=i*3; let x=pos[j],y=pos[j+1],z=pos[j+2];
-    vel(x,y,z,t,v);
-    const ox=x,oy=y,oz=z;
-    x+=v[0]*dt;y+=v[1]*dt;z+=v[2]*dt;
-    // paredes
-    if(x<-W/2+0.02){x=-W/2+0.02}else if(x>W/2-0.02){x=W/2-0.02}
-    if(y<-H/2+0.02){y=-H/2+0.02}else if(y>H/2-0.02){y=H/2-0.02}
-    if(z<-D/2+0.02){z=-D/2+0.02}else if(z>doorZ-0.02){ if(doorOpen&&Math.abs(x)<0.45&&y<-H/2+1.0){life[i]=0}else z=doorZ-0.02}
-    // canastillas: el aire pasa por encima
-    for(const c of crateBoxes){if(x>c.x0&&x<c.x1&&z>c.z0&&z<c.z1&&y<c.top){y=c.top+0.01;break}}
-    // temperatura: el aire se calienta con las ganancias del cuarto y del producto
-    const nearWall=Math.min(x+W/2,W/2-x,z+D/2,doorZ-z,H/2-y)<0.12;
-    const target=S.Tin+1.2+(nearWall?0.18*(S.Tex-S.Tin):0)+(y<-H/2+0.6?0.4:0);
-    Tp[i]+=(target-Tp[i])*Math.min(1,dt*(nearWall?0.9:0.32));
-    if(doorOpen&&z>doorZ-0.35&&Math.abs(x)<0.45&&y>-H/2+1.1) Tp[i]+=(S.Tex-Tp[i])*Math.min(1,dt*2.5);
-    // regreso por el evaporador
-    life[i]-=dt;
-    const inEvap=z<-D/2+0.5&&y>H/2-0.45;
-    if(life[i]<=0||(inEvap&&life[i]<2&&Math.random()<dt*3)){spawn(i,doorOpen&&Math.random()<0.18);x=pos[j];y=pos[j+1];z=pos[j+2];trailPos.set([x,y,z,x,y,z],i*6)}
-    else{const k=trailsOn?0.16/Math.max(.4,S.speed):0;trailPos[i*6]=x;trailPos[i*6+1]=y;trailPos[i*6+2]=z;trailPos[i*6+3]=x-v[0]*k;trailPos[i*6+4]=y-v[1]*k;trailPos[i*6+5]=z-v[2]*k}
+window.addEventListener('resize',resize);resize();
+const V=[0,0,0];
+function advectParticles(dt){
+  for(let i=0;i<N;i++){const j=i*3;let x=pos[j],y=pos[j+1],z=pos[j+2];
+    // RK2 con la velocidad calculada
+    const a=triS(Uc,3,0,x,y,z),b=triS(Uc,3,1,x,y,z),c=triS(Uc,3,2,x,y,z);
+    const xm=x+a*dt*.5,ym=y+b*dt*.5,zm=z+c*dt*.5;
+    V[0]=triS(Uc,3,0,xm,ym,zm);V[1]=triS(Uc,3,1,xm,ym,zm);V[2]=triS(Uc,3,2,xm,ym,zm);
+    x+=V[0]*dt;y+=V[1]*dt;z+=V[2]*dt;life[i]-=dt;
+    const out=!(x===x&&y===y&&z===z)||x<-W/2||x>W/2||y<-H/2||y>H/2||z<-D/2||z>D/2;const cl=out?-1:cellOf(x,y,z);
+    if(life[i]<=0||out||cl<0||SOL[cl]){spawn(i);x=pos[j];y=pos[j+1];z=pos[j+2]}
+    else{const k=0.12;trailPos[i*6]=x;trailPos[i*6+1]=y;trailPos[i*6+2]=z;trailPos[i*6+3]=x-V[0]*k;trailPos[i*6+4]=y-V[1]*k;trailPos[i*6+5]=z-V[2]*k}
     pos[j]=x;pos[j+1]=y;pos[j+2]=z;
-    tcol(Tp[i],col,j);
-    trailCol[i*6]=col[j];trailCol[i*6+1]=col[j+1];trailCol[i*6+2]=col[j+2];trailCol[i*6+3]=col[j]*.15;trailCol[i*6+4]=col[j+1]*.15;trailCol[i*6+5]=col[j+2]*.15;
+    cmap('T',(triS(Tc,1,0,x,y,z)-Tlo)/(Thi-Tlo),col,j);
+    trailCol[i*6]=col[j];trailCol[i*6+1]=col[j+1];trailCol[i*6+2]=col[j+2];trailCol[i*6+3]=col[j]*.12;trailCol[i*6+4]=col[j+1]*.12;trailCol[i*6+5]=col[j+2]*.12;
   }
   pGeo.attributes.position.needsUpdate=true;pGeo.attributes.color.needsUpdate=true;tGeo.attributes.position.needsUpdate=true;tGeo.attributes.color.needsUpdate=true;
-  fans.forEach(f=>f.rotation.z-=dt*18*S.speed);
-  const target=doorOpen?-1.6:0; hinge.rotation.y+=(target-hinge.rotation.y)*Math.min(1,dt*3);
 }
 function loop(now){
-  const dt=Math.min(0.05,(now-last)/1000); last=now;
+  const dt=Math.min(0.05,(now-last)/1000);last=now;
+  if(local)localStep(dt);
   if(visible){
-    if(!paused) step(dt);
-    if(tour.free){ ctl.update(); }
-    else{
-      const a=tour.drift*Math.sin(now*0.00022), c=Math.cos(a), s=Math.sin(a);
-      _d.set(tour.pos.x*c-tour.pos.z*s, tour.pos.y+0.08*tour.drift*Math.sin(now*0.0004), tour.pos.x*s+tour.pos.z*c);
-      const k=reduce?1:1-Math.exp(-dt*2.2);
-      cam.position.lerp(_d,k); ctl.target.lerp(tour.look,k); cam.lookAt(ctl.target);
+    if(haveData){
+      if(simRun&&view.parts)advectParticles(dt*simSpeed);
+      if(now-lastSlice>120){updateRanges();if(view.f!=='none')drawSlice();lastSlice=now}
+      if(now-lastUI>300){sample();chartT();chartR();chartP();panel();lastUI=now}
     }
+    if(simRun)fans.forEach(f=>f.rotation.z-=dt*18*Math.cbrt(params.Qfan/116));
+    const target=doorOpen?-1.6:0;hinge.rotation.y+=(target-hinge.rotation.y)*Math.min(1,dt*3);
+    if(tour.free){if(settle>0){settle-=dt;const k=1-Math.exp(-dt*3);cam.position.lerp(FREEPOS,k);ctl.target.lerp(ORIGIN,k)}ctl.update()}
+    else{const a=tour.drift*Math.sin(now*0.00022),c=Math.cos(a),s=Math.sin(a);
+      _d.set(tour.pos.x*c-tour.pos.z*s,tour.pos.y+0.08*tour.drift*Math.sin(now*0.0004),tour.pos.x*s+tour.pos.z*c);
+      const k=reduce?1:1-Math.exp(-dt*2.2);cam.position.lerp(_d,k);ctl.target.lerp(tour.look,k);cam.lookAt(ctl.target)}
     renderer.render(scene,cam);
   }
   requestAnimationFrame(loop);
 }
 const tour={free:false,pos:new THREE.Vector3(3.5,2.2,3.9),look:new THREE.Vector3(0,-0.1,0),drift:0.45};
-const _d=new THREE.Vector3();
+const _d=new THREE.Vector3(),FREEPOS=new THREE.Vector3(3.15,2.05,3.45),ORIGIN=new THREE.Vector3(0,0,0);let settle=0;
+ctl.addEventListener('start',()=>{settle=0});
 window.__air={
-  go(p,l,drift){tour.pos.set(p[0],p[1],p[2]);tour.look.set(l[0],l[1],l[2]);tour.drift=drift||0;},
-  free(v){tour.free=!!v;ctl.enabled=!!v;ctl.enableZoom=!!v;cv.style.touchAction=v?'none':'pan-y';cv.style.cursor=v?'grab':'default';if(v){ctl.target.set(0,0,0);ctl.update();}},
-  door(v){doorOpen=!!v;tog('aDoor',doorOpen,'Cerrar la puerta','Abrir la puerta');},
-  occ(o){buildCrates(o==null?S.occ:o);}
+  go(p,l,drift){tour.pos.set(p[0],p[1],p[2]);tour.look.set(l[0],l[1],l[2]);tour.drift=drift||0},
+  free(v){tour.free=!!v;ctl.enabled=!!v;ctl.enableZoom=!!v;cv.style.touchAction=v?'none':'pan-y';cv.style.cursor=v?'grab':'default';if(v){settle=1.6}},
+  door(v){if(!!v!==doorOpen)setDoor(v)},
+  occ(o){const x=o==null?occNow:o;buildCrates(x);post({type:'geom',crates:crateBoxes})},
+  view(o){Object.assign(view,o);applyView()},
+  cheese(T){if(tour.free)return;params.Tq=T;post({type:'P',P:{Tq:T}});const s=$('aTq');if(s){s.value=T;$('oaTq').textContent=T.toFixed(1)+' °C'}}
 };
-readData(); step(0.016);
+[pts,trails,vecs,meshLines,slice,wallMesh].forEach(o=>o.frustumCulled=false);
+applyView();readData();
 window.dispatchEvent(new Event('air-ready'));
 window.addEventListener('qiba-update',readData);
 requestAnimationFrame(loop);
 })();
+
 </script>
 
 </body>
