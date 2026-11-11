@@ -309,6 +309,9 @@ footer a{color:var(--ice)}
   .stage{height:48vh;min-height:290px}
 }
 .adv{padding:0}.adv>summary{align-items:flex-start;justify-content:center;text-align:left;font-weight:400}
+.air-solver.load{background:rgba(245,158,11,.16);border-color:rgba(245,158,11,.45);color:var(--white);font-size:11.5px}
+@media (max-width:900px){.air-solver.load{font-size:10px}}
+.cardc .cfdchip{font-size:12px;line-height:1.4}
 </style>
 </head>
 <body>
@@ -386,8 +389,8 @@ QIBA <span>· Cuarto frío</span></a>
 <h3>Juega con la simulación</h3>
 <p>Arrastra para girar y usa la rueda o dos dedos para acercar. El aire se calcula en vivo: cambia un control y el flujo, las temperaturas y las gráficas responden. Los controles también mueven el laboratorio.</p>
 <div class="air-stats">
-<div><b id="aQ">—</b><span>Caudal de aire</span></div>
-<div><b id="aACH">—</b><span>Recambios del aire</span></div>
+<div><b id="aQ">—</b><span>Calor que suelta el queso</span></div>
+<div><b id="aACH">—</b><span>Compresor trabajando, últimos 30 s</span></div>
 <div><b id="aTout">—</b><span>Aire que sale del evaporador</span></div>
 <div><b id="aV">—</b><span>Velocidad en el techo</span></div>
 </div>
@@ -416,6 +419,7 @@ QIBA <span>· Cuarto frío</span></a>
 <button type="button" class="abtn on" id="aMesh" aria-pressed="true">Malla</button>
 <button type="button" class="abtn on" id="aVec" aria-pressed="true">Vectores</button>
 <button type="button" class="abtn on" id="aTrail" aria-pressed="true">Partículas</button>
+<button type="button" class="abtn" id="aAuto" aria-pressed="false">Escala automática</button>
 <button type="button" class="abtn" id="aSpin" aria-pressed="false">Girar la cámara</button>
 </div></div>
 <label class="ctl" for="aFr"><span class="lab"><span>Volumen ocupado por el queso</span><output id="oaFr" for="aFr">40 %</output></span><input type="range" id="aFr" min="10" max="70" step="5" value="40"></label>
@@ -460,7 +464,8 @@ QIBA <span>· Cuarto frío</span></a>
 <div class="air3d">
 <canvas id="air3d" aria-label="Simulación 3D del flujo de aire en el cuarto frío de QIBA"></canvas>
 <div class="air-head" aria-hidden="true"><div class="air-badge"><span class="rec"></span><span id="hEtapa">Carga inicial</span></div>
-<div class="air-solver"><span class="s-hide">CFD · 9 048 celdas</span><span id="hSolve">—</span><span>Compresor <b id="hComp" class="on">ON</b></span></div></div>
+<div class="air-solver"><span class="s-hide">CFD · 9 048 celdas</span><span id="hSolve">—</span><span>Compresor <b id="hComp" class="on">ON</b></span></div>
+<div class="air-solver load"><span id="hLoad">Queso → aire —</span></div></div>
 <div class="air-scale" aria-hidden="true"><b id="airField">Temperatura</b><span id="airTmax"></span><i></i><span id="airTmin"></span></div>
 <div class="air-loading" id="airLoading">Cargando la vista 3D…</div>
 <div class="hud" aria-hidden="true">
@@ -662,7 +667,7 @@ const TOUR=[
  {pos:[2.7,1.0,-0.35],look:[0,0.55,-0.7],drift:.1,etapa:'El evaporador',view:{f:'U',ax:'x',pos:.5,mesh:false,vec:true,parts:true}},
  {pos:[4.4,0.15,0.02],look:[0,0,0],drift:.07,etapa:'Remolinos',view:{f:'O',ax:'x',pos:.5,mesh:false,vec:true,parts:false}},
  {pos:[2.1,0.55,3.8],look:[0,-0.1,1.0],drift:.08,etapa:'La puerta',door:true,view:{f:'T',ax:'x',pos:.5,mesh:false,vec:true,parts:true}},
- {pos:[3.15,2.05,3.45],look:[0,0,0],drift:0,etapa:'Simulación libre',free:true,view:{f:'T',ax:'x',pos:.5,mesh:true,vec:true,parts:true}}
+ {pos:[3.15,2.05,3.45],look:[0,0,0],drift:0,etapa:'Simulación libre',free:true,view:{f:'T',ax:'x',pos:.77,mesh:true,vec:true,parts:true}}
 ];
 const chaps=[...document.querySelectorAll('.chap')];
 let cur=-1,occTimer=null;
@@ -951,7 +956,7 @@ function makeCFD(o){
   const wallA=new Float32Array(NC);    // área de pared exterior por celda (m²)
   // propiedades del aire a 2 522 m (Duitama) y ~2 °C
   const rho=0.95,cp=1006,g=9.81,nu=1.8e-5,alpha=2.5e-5,Prt=0.85,Cs=0.17,Delta=Math.cbrt(dV);
-  const P={Tset:2,Tex:16,Tq:16,Te:-6,Vdot:0.721,Qcap:2845,Qfan:116,U:0.3014,doorOpen:false};
+  const P={kA:1,Tset:2,Tex:16,Tq:16,Te:-6,Vdot:0.721,Qcap:2845,Qfan:116,U:0.3014,doorOpen:false};
   const st={t:0,on:true,Tout:2,Tret:2,Qevap:0,Qwall:0,Qcheese:0,Qdoor:0,res:0,resIn:0,Vjet:0,steps:0};
   const X0=-W/2,Y0=-H/2,Z0=-D/2;
   // ---------- geometría ----------
@@ -1141,7 +1146,7 @@ function makeCFD(o){
       let q=0;
       if(wallA[c]){let A=wallA[c];if(P.doorOpen&&k===NZ-1&&door[i+NX*j])A-=dx*dy;const qq=P.U*A*(P.Tex-t);q+=qq;Qw+=qq}
       if(crateAdj[c]){const sp=Math.hypot(.5*(u[iu(i,j,k)]+u[iu(i+1,j,k)]),.5*(v[iv(i,j,k)]+v[iv(i,j+1,k)]),.5*(w[iw(i,j,k)]+w[iw(i,j,k+1)]));
-        const h=5.7+3.8*sp;const qq=h*crateAdj[c]*(P.Tq-t);q+=qq;Qq+=qq}
+        const h=(5.7+3.8*sp)*P.kA;const qq=h*crateAdj[c]*(P.Tq-t);q+=qq;Qq+=qq}
       T[c]=t+dt*(al*L+q/rcV);
     }
     // aire de afuera que entra por la puerta
@@ -1215,14 +1220,16 @@ const fans=[];
 const crates=new THREE.Group(); room.add(crates);
 const crateCols=[0x2f9e5b,0x2f9e5b,0xb9c2c9,0x2a6fd6,0xc8463c,0x2f9e5b];
 let crateBoxes=[];
+function tintCrates(){try{const c=[0,0,0];cmap('T',(params.Tq-Tlo)/(Thi-Tlo),c,0);crates.children.forEach(m=>{m.material.emissive.setRGB(c[0]*.75,c[1]*.75,c[2]*.75)})}catch(e){}}
 function buildCrates(occ){
   crates.clear(); crateBoxes=[];
   const cw=0.4,cd=0.55,ch=0.24;
   const levels=Math.max(1,Math.min(8,Math.round(occ*10)));
   [[-0.33,0.35],[0.33,0.35],[-0.33,-0.35],[0.33,-0.35]].forEach(([x,z],si)=>{const n=Math.max(1,levels-(si%2));for(let i=0;i<n;i++){
-    const m=new THREE.Mesh(new THREE.BoxGeometry(cw,ch*.95,cd),new THREE.MeshStandardMaterial({color:crateCols[(i+si)%crateCols.length],roughness:.7,transparent:true,opacity:.55,depthWrite:false}));
+    const m=new THREE.Mesh(new THREE.BoxGeometry(cw,ch*.95,cd),new THREE.MeshStandardMaterial({color:crateCols[(i+si)%crateCols.length],roughness:.7,transparent:true,opacity:.6,depthWrite:false,emissive:0x000000}));
     m.position.set(x,-H/2+ch/2+i*ch,z); crates.add(m)}
     crateBoxes.push({x0:x-cw/2,x1:x+cw/2,z0:z-cd/2,z1:z+cd/2,top:-H/2+n*ch})});
+  tintCrates();
 }
 // puerta
 const door=new THREE.Group(); room.add(door);
@@ -1233,7 +1240,7 @@ doorLeaf.position.set(0.45,0,0);doorLeaf.add(new THREE.LineSegments(new THREE.Ed
 const Tc=new Float32Array(NC), Uc=new Float32Array(3*NC), SOL=new Uint8Array(NC);
 let ST={t:0,on:true,Tout:2,Tret:2,Qevap:0,Qwall:0,Qcheese:0,Qdoor:0,res:0,resIn:0,Vjet:0,steps:0};
 let haveData=false, worker=null, local=null, simRun=!reduce, simSpeed=1;
-const params={Tset:2,Tex:16,Tq:16,Te:-6,Vdot:0.721,Qcap:2845,Qfan:116};
+const params={kA:3.5,Tset:2,Tex:16,Tq:16,Te:-6,Vdot:0.721,Qcap:2845,Qfan:116};
 function wsrc(){return `${makeCFD.toString()}
 let c=null,run=true,speed=1,last=0,acc=0;const Tc=new Float32Array(${NC}),Uc=new Float32Array(${3*NC});
 onmessage=e=>{const m=e.data;
@@ -1300,10 +1307,10 @@ const MAPS={
 const CSS={T:'linear-gradient(180deg,#ff5433,#ffb347 22%,#eaf6ff 45%,#40e0ff 70%,#2966ff)',U:'linear-gradient(180deg,#d9260d,#fabb38 25%,#1ce6b5 50%,#4588fa 75%,#30123b)',O:'linear-gradient(180deg,#ff4030,#ffb39a 40%,#f2f6fa 50%,#8cbfff 60%,#1f5aff)'};
 function cmap(name,t,o,i){const st=MAPS[name];t=t<0?0:t>1?1:t;let a=st[0],b=st[st.length-1];for(let k=0;k<st.length-1;k++)if(t>=st[k][0]&&t<=st[k+1][0]){a=st[k];b=st[k+1];break}
   const u=(t-a[0])/((b[0]-a[0])||1);o[i]=a[1][0]+(b[1][0]-a[1][0])*u;o[i+1]=a[1][1]+(b[1][1]-a[1][1])*u;o[i+2]=a[1][2]+(b[1][2]-a[1][2])*u}
-let Tlo=0,Thi=6,Umax=2.5,Omax=8;
+let Tlo=-4,Thi=12,Umax=2.5,Omax=8;
 
 /* ---------- corte: campo de color, vectores y malla ---------- */
-const view={f:'T',ax:'x',pos:0.5,mesh:true,vec:true,parts:true};
+const view={f:'T',ax:'x',pos:0.5,mesh:true,vec:true,parts:true,auto:false};
 const sliceTex=new THREE.DataTexture(new Uint8Array(4*NZ*NY),NZ,NY,THREE.RGBAFormat);sliceTex.magFilter=THREE.LinearFilter;sliceTex.minFilter=THREE.LinearFilter;
 const sliceMat=new THREE.MeshBasicMaterial({map:sliceTex,transparent:true,opacity:.9,side:THREE.DoubleSide,depthWrite:false,polygonOffset:true,polygonOffsetFactor:1,polygonOffsetUnits:1});
 const sliceGeo=new THREE.BufferGeometry();sliceGeo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(18),3));sliceGeo.setAttribute('uv',new THREE.BufferAttribute(new Float32Array([0,0,1,0,1,1,0,0,1,1,0,1]),2));
@@ -1345,7 +1352,8 @@ function updateRanges(){
   const Ts=[],Us=[],Os=[];for(let c=0;c<NC;c+=3){if(SOL[c])continue;Ts.push(Tc[c]);Us.push(Math.hypot(Uc[3*c],Uc[3*c+1],Uc[3*c+2]))}
   Ts.sort((a,b)=>a-b);Us.sort((a,b)=>a-b);
   const lo=Ts[Math.floor(Ts.length*.02)],hi=Ts[Math.floor(Ts.length*.98)];const mid=(lo+hi)/2,sp=Math.max(3,hi-lo);
-  Tlo+=(mid-sp/2-Tlo)*.15;Thi+=(mid+sp/2-Thi)*.15;Umax+=(Math.max(0.5,Us[Math.floor(Us.length*.98)])-Umax)*.15;
+  let L0=mid-sp/2,H0=mid+sp/2;if(!view.auto){L0=params.Tset-6;H0=Math.max(params.Tset+10,doorOpen?params.Tex:0)}
+  Tlo+=(L0-Tlo)*.2;Thi+=(H0-Thi)*.2;tintCrates();Umax+=(Math.max(0.5,Us[Math.floor(Us.length*.98)])-Umax)*.15;
 }
 function drawSlice(){
   const L=layer(),img=sliceTex.image,d=img.data,na=img.width,nb=img.height;const om=[];
@@ -1382,7 +1390,7 @@ function applyView(){
   document.querySelector('.air-scale i').style.background=CSS[view.f]||CSS.T;
   document.querySelectorAll('[data-vf]').forEach(b=>{const on=b.dataset.vf===view.f;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});
   document.querySelectorAll('[data-va]').forEach(b=>{const on=b.dataset.va===view.ax;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});
-  tog('aMesh',view.mesh);tog('aVec',view.vec);tog('aTrail',view.parts);
+  tog('aMesh',view.mesh);tog('aAuto',view.auto);tog('aVec',view.vec);tog('aTrail',view.parts);
   if($('aPos'))$('aPos').value=Math.round(view.pos*100);
   const nL=view.ax==='x'?NX:view.ax==='y'?NY:NZ;if($('oaPos'))$('oaPos').textContent='Capa '+(layer()+1)+' de '+nL;
   sliceGeom();
@@ -1396,7 +1404,6 @@ function readData(){
   params.Tset=P.tin;params.Tex=P.tex;params.Te=C.Te;params.Vdot=Vdot/3600;params.Qfan=P.qv;params.Qcap=1000*(window.__QEVAP||2.845);
   post({type:'P',P:params});
   if(Math.abs(occNow-P.occ)>0.005){occNow=P.occ;buildCrates(P.occ);post({type:'geom',crates:crateBoxes})}
-  $('aQ').textContent=Math.round(Vdot)+' m³/h';$('aACH').textContent=Math.round(Vdot/VROOM)+' veces por hora';
 }
 
 /* ---------- controles ---------- */
@@ -1408,12 +1415,13 @@ $('aSpin').onclick=()=>{spin=!spin;ctl.autoRotate=spin;ctl.autoRotateSpeed=1.2;t
 $('aPause').onclick=()=>{simRun=!simRun;tog('aPause',!simRun,'Reanudar','Pausar');post({type:'run',on:simRun})};
 if(!simRun){tog('aPause',true,'Reanudar','Pausar');post({type:'run',on:false})}
 $('aMesh').onclick=()=>{view.mesh=!view.mesh;applyView()};
+$('aAuto').onclick=()=>{view.auto=!view.auto;applyView()};
 $('aVec').onclick=()=>{view.vec=!view.vec;applyView()};
 $('aReset').onclick=()=>{post({type:'reset',T0:params.Tset});hist.length=0};
 document.querySelectorAll('[data-vf]').forEach(b=>b.onclick=()=>{view.f=b.dataset.vf;applyView()});
 document.querySelectorAll('[data-va]').forEach(b=>b.onclick=()=>{view.ax=b.dataset.va;view.pos=b.dataset.va==='y'?0.55:0.5;applyView()});
 $('aPos').oninput=e=>{view.pos=e.target.value/100;applyView()};
-$('aTq').oninput=e=>{params.Tq=+e.target.value;$('oaTq').textContent=params.Tq.toFixed(1)+' °C';post({type:'P',P:{Tq:params.Tq}})};
+$('aTq').oninput=e=>{params.Tq=+e.target.value;tintCrates();if($('hT'))$('hT').textContent=params.Tq.toFixed(1)+' °C';if($('hDial'))$('hDial').style.left=((16-params.Tq)/14*100)+'%';$('oaTq').textContent=params.Tq.toFixed(1)+' °C';post({type:'P',P:{Tq:params.Tq}})};
 $('aSp').oninput=e=>{simSpeed=+e.target.value;$('oaSp').textContent='×'+simSpeed;post({type:'run',on:simRun,speed:simSpeed})};
 
 /* ---------- gráficas ---------- */
@@ -1458,8 +1466,12 @@ function chartP(){const c=$('cfdP');if(!shown(c)||!haveData)return;const [g,w,h]
   [[0,'#40e0ff'],[0.7,'#F59E0B']].forEach(([zz,colr])=>{g.strokeStyle=colr;g.lineWidth=1.8;g.beginPath();
     for(let j=0;j<NY;j++){const y=-H/2+(j+.5)*dy;const val=triS(Uc,3,2,0,y,zz);const py=b-(j+.5)/NY*(b-8);j?g.lineTo(X(val),py):g.moveTo(X(val),py)}g.stroke()});
 }
+function duty(){let n=0,o=0;const t1=hist.length?hist[hist.length-1].t:0;for(let i=hist.length-1;i>=0&&t1-hist[i].t<=30;i--){n++;if(hist[i].on)o++}return n?o/n:0}
 function panel(){
   if(!haveData)return;
+  const qk=Math.max(0,ST.Qcheese)/1000,du=Math.round(duty()*100);
+  $('aQ').textContent=qk.toFixed(2)+' kW';$('aACH').textContent=du+' %';
+  $('hLoad').textContent=`Queso → aire ${qk.toFixed(2)} kW · compresor ${du} %`;
   const f1=v=>(v>=0?'':'−')+Math.abs(v).toFixed(1);
   $('aTout').textContent=f1(ST.Tout)+' °C';
   let vmax=0;for(let k=0;k<NZ;k++)for(let j=NY-4;j<NY;j++)for(let i=0;i<NX;i++){const c=id(i,j,k);if(SOL[c])continue;const s=Math.hypot(Uc[3*c],Uc[3*c+1],Uc[3*c+2]);if(s>vmax)vmax=s}
@@ -1522,7 +1534,7 @@ window.__air={
   door(v){if(!!v!==doorOpen)setDoor(v)},
   occ(o){const x=o==null?occNow:o;buildCrates(x);post({type:'geom',crates:crateBoxes})},
   view(o){Object.assign(view,o);applyView()},
-  cheese(T){if(tour.free)return;params.Tq=T;post({type:'P',P:{Tq:T}});const s=$('aTq');if(s){s.value=T;$('oaTq').textContent=T.toFixed(1)+' °C'}}
+  cheese(T){if(tour.free)return;params.Tq=T;tintCrates();post({type:'P',P:{Tq:T}});const s=$('aTq');if(s){s.value=T;$('oaTq').textContent=T.toFixed(1)+' °C'}}
 };
 [pts,trails,vecs,meshLines,slice,wallMesh].forEach(o=>o.frustumCulled=false);
 applyView();readData();
